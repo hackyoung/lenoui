@@ -1,4 +1,10 @@
 var EditorToolbar = (function() {
+	/**
+	 * 改变工具栏的条目状态
+	 * @param editor 编辑器对象
+	 * @param index	条目的索引，比如foreColor
+	 * @param active 是否激活该条目
+	 */
     var changeItemState = function(editor, index, active) {
         var $item = editor.$toolbarContainer.find('[data-id='+index+']');
         var type = $item.attr('data-type');
@@ -19,6 +25,9 @@ var EditorToolbar = (function() {
             return;
         }
     }
+	/**
+	 * 通常的工具栏条目初始化, 该方法会读取onclick，然后执行
+	 */
     var normalInitToolbarItem = function($item) {
         var editor = $item.data('editor');
         var func = $item.data('toolbar-item-click');
