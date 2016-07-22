@@ -1,0 +1,189 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>my test</title>
+    </head>
+    <body>
+        <style>
+        .btn {
+            padding: .25em .5em;
+            border-radius: .2em;
+            border: 1px solid rgba(0,0,0,.1);
+            background: #eee linear-gradient(hsla(0,0%,100%,.2), transparent);   
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+            color: #444;
+            font-size: 100%;
+            line-height: 1.5;
+        }
+        .btn.big {
+            font-size: 200%;
+        }
+        .btn.small {
+            font-size: 50%;
+        }
+        .btn.warning {
+            background-color: #f47920;
+            color: white;
+            text-shadow: 0 -1px 1px #335166;
+        }
+        .btn.success {
+            background-color: #1d953f;
+            color: white;
+            text-shadow: 0 -1px 1px #335166;
+        }
+        .btn.error {
+            background-color: #d71345;
+            color: white;
+            text-shadow: 0 -1px 1px #335166;
+        }
+        .btn:focus {
+            outline: none;
+        }
+        .btn:hover {
+            cursor: pointer;
+        }
+        .pop-menu {
+            font-size: 100%;
+            border: 1px solid rgba(0, 0, 0, .1);
+            background: #eee;
+            min-width: 1em;
+            min-height: 1em;
+            display: inline-block;
+            position: relative;
+            border-radius: .3em;
+            box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+            padding: .4em;
+        }
+        .pop-menu.arrow-bottom {
+            box-shadow: 1px -1px 6px rgba(0, 0, 0, 0.3);
+        }
+        .pop-menu.arrow-top::before {
+            width: 0.625em;
+            height: 0.625em;
+            border-top: inherit;
+            border-left: inherit;
+            background: inherit;
+            position: absolute;
+            transform: rotate(45deg);
+            top: -0.35em;
+            left: calc(50% - 0.35em);
+            display: inline-block;
+            content: '';
+        }
+        .pop-menu.arrow-bottom::after {
+            width: 0.625em;
+            height: 0.625em;
+            border-right: inherit;
+            border-bottom: inherit;
+            background: inherit;
+            position: absolute;
+            transform: rotate(45deg);
+            bottom: -0.35em;
+            left: calc(50% - 0.35em);
+            display: inline-block;
+            content: '';
+        }
+        .pop-menu.arrow-left::before {
+            width: 0.625em;
+            height: 0.625em;
+            border-left: inherit;
+            border-bottom: inherit;
+            background: inherit;
+            position: absolute;
+            transform: rotate(45deg);
+            left: -0.35em;
+            top: calc(50% - 0.35em);
+            display: inline-block;
+            content: '';
+        }
+        .pop-menu.arrow-right::after {
+            width: 0.625em;
+            height: 0.625em;
+            border-top: inherit;
+            border-right: inherit;
+            background: inherit;
+            position: absolute;
+            transform: rotate(45deg);
+            right: -0.35em;
+            top: calc(50% - 0.35em);
+            display: inline-block;
+            content: '';
+        }
+        .pop-menu.big {
+            font-size: 150%;
+        }
+        .pop-menu.black {
+            background-color: #444;
+            color: white;
+        }
+        .input {
+            border: 1px solid rgba(0, 0, 0, .1);   
+            border-radius: .2em;
+            padding: .4em;
+            background: #fff linear-gradient(hsla(0, 0%, 100%, .2), transparent);
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15) inset;
+            transition: all 0.1s ease-in;
+            -webkit-transition: all 0.1s sease-in;
+            -moz-transition: all 0.1s ease-in;
+        }
+        .input:focus {
+            box-shadow: 1px 1px 5px rgba(42, 92, 170, 0.2);
+            border: 1px solid rgba(0, 0, 0, .2);   
+            outline: none;
+        }
+        </style>
+        <style>
+            .container {
+                padding: 10px 0px;
+            }
+        </style>
+        hello world
+        <div class="container">
+            <input class="input" />
+            <input class="input" />
+            <input class="input" />
+            <textarea class="input"></textarea>
+        </div>
+        <div class="container">
+            <button class="btn big">hello world</button>
+            <button class="btn big warning">hello world</button>
+            <button class="btn big success">hello world</button>
+            <button class="btn big error">hello world</button>
+        </div>
+        <div class="container">
+            <button class="btn">hello world</button>
+            <button class="btn warning">hello world</button>
+            <button class="btn success">hello world</button>
+            <button class="btn error">hello world</button>
+        <div class="container">
+            <button class="btn small">hello world</button>
+            <button class="btn small warning">hello world</button>
+            <button class="btn small success">hello world</button>
+            <button class="btn small error">hello world</button>
+        </div>
+        <div class="container">
+            <div class="pop-menu arrow-top">hehehehehehe</div>
+            <div class="pop-menu arrow-bottom">hehehehehehehe</div>
+            <div class="pop-menu arrow-left">hehehehehehehe</div>
+            <div class="pop-menu arrow-right">hehehehehehehe</div>
+        </div>
+        <div class="container">
+            <div class="pop-menu big arrow-top">hehehehehehe</div>
+            <div class="pop-menu big arrow-bottom">hehehehehehehe</div>
+            <div class="pop-menu big arrow-left">hehehehehehehe</div>
+            <div class="pop-menu big arrow-right">hehehehehehehe</div>
+        </div>
+        <div class="container">
+            <div class="pop-menu black arrow-top">hehehehehehe</div>
+            <div class="pop-menu black arrow-bottom">hehehehehehehe</div>
+            <div class="pop-menu black arrow-left">hehehehehehehe</div>
+            <div class="pop-menu black arrow-right">hehehehehehehe</div>
+        </div>
+        <div class="container">
+            <div class="pop-menu black big arrow-top">hehehehehehe</div>
+            <div class="pop-menu black big arrow-bottom">hehehehehehehe</div>
+            <div class="pop-menu black big arrow-left">hehehehehehehe</div>
+            <div class="pop-menu black big arrow-right">hehehehehehehe</div>
+        </div>
+    </body>
+</html>
