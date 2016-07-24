@@ -1,0 +1,72 @@
+body {
+    margin: 0px;
+    padding: 0;
+}
+.header-wrapper,
+.main-wrapper {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    width: 100%;
+}
+.main-wrapper {
+    padding-top: 100px;
+}
+.normal-header, 
+.main {
+    width: 100%;
+    max-width: 1000px;
+}
+.main>.header {
+    padding: 40px 0px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    height: 30px;
+}
+.main>.header .item {
+    transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    vertical-align: middle;
+}
+.main>.header .item>.input {
+    width: 150px;
+    transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+}
+.main>.header .item>.input:focus {
+    width: 250px;
+}
+.main>.header .item:hover,
+.main>.header .item.active {
+    color: green;
+    cursor: pointer;
+}
+.book-wrapper {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.book-wrapper .item {
+    background: #eee;
+    width: 230px;
+    height: 250px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0);
+    position:relative;
+}
+.book-wrapper .item:hover {
+    box-shadow: 1px -5px 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid #0066cc;
+    transform: translateY(-5px);
+    cursor: pointer;
+}

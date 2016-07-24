@@ -1,0 +1,214 @@
+select,input,button,textarea {
+    color: inhiret;
+    font-size: inhiret;
+}
+a {
+    text-decoration: none;
+    color: green;
+}
+a:visited {
+    color: #999;
+}
+.btn {
+    padding: .16em .5em;
+    border-radius: .2em;
+    border: 1px solid rgba(0,0,0,.1);
+    background: #eee linear-gradient(hsla(0,0%,100%,.2), transparent);   
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    color: #444;
+    font-size: 100%;
+    line-height: 1.5;
+}
+.btn:active {
+    background: linear-gradient(transparent, hsla(0,0%,100%,.2));   
+}
+.btn.big {
+    font-size: 200%;
+}
+.btn.small {
+    font-size: 70%;
+}
+.btn.warning {
+    background-color: #f47920;
+    color: white;
+    text-shadow: 0 -1px 1px #335166;
+}
+.btn.success {
+    background-color: #1d953f;
+    color: white;
+    text-shadow: 0 -1px 1px #335166;
+}
+.btn.error {
+    background-color: #d71345;
+    color: white;
+    text-shadow: 0 -1px 1px #335166;
+}
+.btn:focus {
+    outline: none;
+}
+.btn:hover {
+    cursor: pointer;
+}
+.pop-menu-wrapper {
+    display: inline-block;
+    position: absolute;
+    z-index: 1000;
+}
+.pop-menu {
+    font-size: 100%;
+    border: 1px solid rgba(0, 0, 0, .1);
+    background: #fff;
+    min-width: 1em;
+    min-height: 1em;
+    display: inline-block;
+    position: relative;
+    border-radius: .3em;
+    color: #444;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.15);
+    padding: .4em;
+    margin: 0;
+}
+.pop-menu.arrow-bottom {
+    box-shadow: 1px -1px 6px rgba(0, 0, 0, 0.3);
+}
+.pop-menu.arrow-top::before {
+    width: 0.625em;
+    height: 0.625em;
+    border-top: inherit;
+    border-left: inherit;
+    background: inherit;
+    position: absolute;
+    transform: rotate(45deg);
+    top: -0.35em;
+    left: calc(50% - 0.35em);
+    display: inline-block;
+    content: '';
+}
+.pop-menu.arrow-bottom::after {
+    width: 0.625em;
+    height: 0.625em;
+    border-right: inherit;
+    border-bottom: inherit;
+    background: inherit;
+    position: absolute;
+    transform: rotate(45deg);
+    bottom: -0.35em;
+    left: calc(50% - 0.35em);
+    display: inline-block;
+    content: '';
+}
+.pop-menu.arrow-left::before {
+    width: 0.625em;
+    height: 0.625em;
+    border-left: inherit;
+    border-bottom: inherit;
+    background: inherit;
+    position: absolute;
+    transform: rotate(45deg);
+    left: -0.35em;
+    top: calc(50% - 0.35em);
+    display: inline-block;
+    content: '';
+}
+.pop-menu.arrow-right::after {
+    width: 0.625em;
+    height: 0.625em;
+    border-top: inherit;
+    border-right: inherit;
+    background: inherit;
+    position: absolute;
+    transform: rotate(45deg);
+    right: -0.35em;
+    top: calc(50% - 0.35em);
+    display: inline-block;
+    content: '';
+}
+.pop-menu.big {
+    font-size: 150%;
+}
+.pop-menu.small {
+    font-size: 70%;
+}
+.pop-menu .item {
+    text-align: left;
+    cursor: pointer;
+    padding: .25em;
+    border-radius: .2em;
+    letter-spacing: 2px; 
+}
+.pop-menu .item.sep {
+    height: 1px;
+    padding: 0px;
+    margin: .25em;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, .5) inset;
+}
+.pop-menu .item:hover {
+    background-color: #eee;
+}
+.pop-menu.black {
+    background-color: #444;
+    color: white;
+}
+.pop-menu.black .item:hover {
+    background-color: #111;
+}
+.input {
+    border: 1px solid rgba(0, 0, 0, .1);   
+    border-radius: .2em;
+    padding: .4em;
+    background: #fff linear-gradient(hsla(0, 0%, 100%, .2), transparent);
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.05) inset;
+    transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s sease-in;
+    -moz-transition: all 0.1s ease-in;
+}
+.input:focus {
+    box-shadow: 1px 1px 5px rgba(42, 92, 170, 0.2);
+    border: 1px solid rgba(0, 0, 0, .2);   
+    outline: none;
+}
+.input:disabled {
+    background: #f8f8f8 linear-gradient(hsla(0, 0%, 100%, .2), transparent);
+    cursor: not-allowed;
+}
+blockquote,
+.bq {
+    border-left: .3em solid rgba(0, 0, 0, .1);
+    margin: 0;
+    padding: .8em .8em .8em 2em;
+    font-weight: bold;
+}
+.form {
+    padding: .5em;
+}
+.input-group {
+    padding: .5em 0;
+}
+.input-group .input {
+    width: 100%;
+    margin: .2em 0;
+}
+.input-group.inline .input {
+    width: auto;
+}
+ul.pop-menu {
+}
+.pop-menu li.item {
+    list-style: none;
+}
+.h-sep {
+    width: 80%;
+    margin: 5px 0px;
+    height: 1px;
+    background: #eee;
+    display: inline-block;
+    text-align: center;
+}
+.v-sep {
+    height: 80%;
+    margin: 0px 5px;
+    width: 1px;
+    background: #eee;
+    vertical-align: middle;
+    display: inline-block;
+}
