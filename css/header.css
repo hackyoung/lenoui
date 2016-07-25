@@ -9,6 +9,9 @@
     display: flex;
     display: -webkit-flex;
     height: 100px;
+    transition: height 0.3s ease-in;
+    -moz-transition: height 0.3s ease-in;
+    -webkit-transition: height 0.3s ease-in;
     background: rgba(255, 255, 255, .9);
 }
 .header-wrapper.fixed .normal-header {
@@ -58,6 +61,10 @@
     padding-right: 70px;
     font-size: 90%;
 }
+.normal-header>.right div .pop-menu-wrapper {
+    transition: .2s transform;
+    transform: scale(1);
+}
 .normal-header>.right div.disabled .pop-menu-wrapper {
-    display: none;
+    transform: scale(0);
 }

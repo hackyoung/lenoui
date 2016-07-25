@@ -10,12 +10,12 @@
         $(document).ready(function() {
             $(window).scroll(function() {
                 var top = $(window).scrollTop();
+                $('.header-wrapper').css('top', Math.max(0, top));
                 if (top > 10) {
                     $('.header-wrapper').addClass('fixed');
                 } else {
                     $('.header-wrapper').removeClass('fixed');
                 }
-                $('.header-wrapper').css('top', Math.max(0, top));
             });
             $('.normal-header .right .thumbnail').click(function(e) {
                 e.stopPropagation();

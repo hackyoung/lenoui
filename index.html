@@ -4,6 +4,22 @@
         <title>my test</title>
         <meta charset='utf-8' />
         <link href="css/lenoui.css" rel="stylesheet" type="text/css" />
+        <meta name="viewport" content="width=device-width" />
+        <script src="js/jquery.js"></script>
+        <script>
+        $(document).ready(function() {
+            $('#btn').click(function() {
+                $('.modal').addClass('show');
+            });
+            $('.modal').find('.close').click(function() {
+                var $p = $(this).parent();
+                while(!$p.hasClass('modal')) {
+                    $p = $p.parent();
+                }
+                $p.removeClass('show');
+            });
+        });
+        </script>
     </head>
     <body>
         <style>
@@ -13,22 +29,45 @@
         </style>
         hello world
         <div class="container">
+            <div class="modal">
+                <div class="content">
+                    <header class="header">
+                        <span class="title">开始</span>
+                        <span class="middle btn-group">
+                            <button class='btn active'>登录</button>
+                            <button class='btn'>注册</button>
+                        </span>
+                        <span class="close">X</span>
+                    </header>
+                    <section class="main">
+                        <div class="form" style="max-width: 300px">
+                            <div class="input-group">
+                                <label>用户名</label>
+                                <input type="text" class="input" />
+                            </div>
+                            <div class="input-group">
+                                <label>密码</label>
+                                <input type="text" class="input" />
+                            </div>
+                            <div class="input-group">
+                                <button class="btn success">登录</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="container">
             <input class="input" />
             <input class="input" />
             <input class="input" />
             <textarea class="input"></textarea>
         </div>
         <div class="container">
-            <button class="btn big">hello world</button>
+            <button id="btn" class="btn big">hello world</button>
             <button class="btn big warning">hello world</button>
             <button class="btn big success">hello world</button>
             <button class="btn big error">hello world</button>
-        </div>
-        <div class="container">
-            <button class="btn">hello world</button>
-            <button class="btn warning">hello world</button>
-            <button class="btn success">hello world</button>
-            <button class="btn error">hello world</button>
         </div>
         <div class="container">
             <button class="btn small">hello world</button>
