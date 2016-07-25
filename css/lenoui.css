@@ -1,3 +1,11 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 select,input,button,textarea {
     color: inhiret;
     font-size: inhiret;
@@ -197,14 +205,31 @@ blockquote,
 .form {
     padding: .5em;
 }
-.input-group {
+.input-line {
     padding: .5em 0;
 }
+.input-group {
+    display: flex;
+    display: -webkit-flex;
+}
+.input-group .btn,
 .input-group .input {
+    border-radius: 0;
+}
+.input-group .btn {
+    box-shadow: none;
+}
+.input-group>*:first-child {
+    border-radius: .2em 0 0 .2em;
+}
+.input-group>*:last-child {
+    border-radius: 0 .2em .2em 0;
+}
+.input-line .input {
     width: calc(100% - 1em);
     margin: .2em 0;
 }
-.input-group.inline .input {
+.input-line.inline .input {
     width: auto;
 }
 ul.pop-menu {
@@ -344,4 +369,19 @@ ul.pop-menu {
 .modal.rb {
     align-items: flex-end;
     justify-content: flex-end;
+}
+.lr {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tab {
+    transform: scale(0);
+    position: absolute;    
+}
+.tab.active {
+    transform: scale(1);
+    transition: .1s transform;
+    position: static;
 }

@@ -6,17 +6,14 @@
         <link href="css/lenoui.css" rel="stylesheet" type="text/css" />
         <meta name="viewport" content="width=device-width" />
         <script src="js/jquery.js"></script>
+        <script src="js/lenoui.js"></script>
         <script>
         $(document).ready(function() {
-            $('#btn').click(function() {
-                $('.modal').addClass('show');
+            $('.modal').luiModal('modal.on.open', function($modal) {
+                console.log($modal);
             });
-            $('.modal').find('.close').click(function() {
-                var $p = $(this).parent();
-                while(!$p.hasClass('modal')) {
-                    $p = $p.parent();
-                }
-                $p.removeClass('show');
+            $('.modal').luiModal('modal.on.close', function($modal) {
+                console.log($modal);
             });
         });
         </script>
@@ -29,28 +26,56 @@
         </style>
         hello world
         <div class="container">
+            <div class="input-group">
+                <button class="btn">@</button>
+                <input class="input" />
+                <button class="btn">搜索</button>
+            </div>
+        </div>
+        <div class="container">
             <div class="modal">
                 <div class="content">
                     <header class="header">
                         <span class="title">开始</span>
                         <span class="middle btn-group">
-                            <button class='btn active'>登录</button>
-                            <button class='btn'>注册</button>
+                            <button class='btn active' data-toggle='tab' for='login'>登录</button>
+                            <button class='btn' data-toggle='tab' for='reg'>注册</button>
                         </span>
                         <span class="close">X</span>
                     </header>
                     <section class="main">
-                        <div class="form" style="max-width: 300px">
-                            <div class="input-group">
+                        <div id="login" class="form tab active" style="max-width: 500px">
+                            <div class="input-line">
                                 <label>用户名</label>
                                 <input type="text" class="input" />
                             </div>
-                            <div class="input-group">
+                            <div class="input-line">
                                 <label>密码</label>
                                 <input type="text" class="input" />
                             </div>
-                            <div class="input-group">
+                            <div class="input-line lr">
+                                <span>
+                                    <input type="CHECKBOX">记住密码
+                                </span>
                                 <button class="btn success">登录</button>
+                            </div>
+                        </div>
+                        <div id="reg" class="form tab" style="max-width: 500px">
+                            <div class="input-line">
+                                <label>用户名</label>
+                                <input type="text" class="input" />
+                            </div>
+                            <div class="input-line">
+                                <label>密码</label>
+                                <input type="text" class="input" />
+                            </div>
+                            <div class="input-line">
+                                <label>重复密码</label>
+                                <input type="text" class="input" />
+                            </div>
+                            <div class="input-line lr">
+                                <span></span>
+                                <button class="btn success">注册</button>
                             </div>
                         </div>
                     </section>
@@ -64,13 +89,13 @@
             <textarea class="input"></textarea>
         </div>
         <div class="container">
-            <button id="btn" class="btn big">hello world</button>
+            <button data-toggle="modal" for=".modal" class="btn big">hello world</button>
             <button class="btn big warning">hello world</button>
             <button class="btn big success">hello world</button>
             <button class="btn big error">hello world</button>
         </div>
         <div class="container">
-            <button class="btn small">hello world</button>
+            <button  data-toggle="modal" for=".modal" class="btn">hello world</button>
             <button class="btn small warning">hello world</button>
             <button class="btn small success">hello world</button>
             <button class="btn small error">hello world</button>
