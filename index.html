@@ -9,12 +9,7 @@
         <script src="js/lenoui.js"></script>
         <script>
         $(document).ready(function() {
-            $('.modal').luiModal('modal.on.open', function($modal) {
-                console.log($modal);
-            });
-            $('.modal').luiModal('modal.on.close', function($modal) {
-                console.log($modal);
-            });
+            $('.modal').luiModal('modal.on.open', function() {});
         });
         </script>
     </head>
@@ -75,7 +70,7 @@
                             </div>
                             <div class="input-line lr">
                                 <span></span>
-                                <button class="btn success">注册</button>
+                                <button class="btn success" style="width: 100%">注册</button>
                             </div>
                         </div>
                     </section>
@@ -89,13 +84,13 @@
             <textarea class="input"></textarea>
         </div>
         <div class="container">
-            <button data-toggle="modal" for=".modal" class="btn big">hello world</button>
+            <button data-toggle="modal" for=".modal" class="btn big">点我登录</button>
             <button class="btn big warning">hello world</button>
             <button class="btn big success">hello world</button>
             <button class="btn big error">hello world</button>
         </div>
         <div class="container">
-            <button  data-toggle="modal" for=".modal" class="btn">hello world</button>
+            <button  data-toggle="modal" for=".modal" class="btn">点我注册</button>
             <button class="btn small warning">hello world</button>
             <button class="btn small success">hello world</button>
             <button class="btn small error">hello world</button>

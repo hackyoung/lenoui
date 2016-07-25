@@ -37,6 +37,9 @@
                 return registerOnOpen($(this), callback);
         }
     }
+    $.activeTag = function(id) {
+        $('[data-toggle=tab]').filter('[for='+id+']').click();
+    };
 })(jQuery);
 
 $(function() {
