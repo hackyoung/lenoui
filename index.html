@@ -9,7 +9,7 @@
         <script src="js/lenoui.js"></script>
         <script>
         $(document).ready(function() {
-            $('.modal').luiModal('modal.on.open', function() {});
+            $('.modal').luiModal('modal.on.open');
         });
         </script>
     </head>
@@ -18,23 +18,11 @@
             .container {
                 padding: 10px 0px;
             }
+            .pop-menu-container {
+                margin: 500px;
+            }
         </style>
         hello world
-        <div class="container">
-            <div class="input-group">
-                <button class="btn">@</button>
-                <input class="input" />
-                <button class="btn">搜索</button>
-            </div>
-            <div class="btn-group">
-                <button class="btn">@</button>
-                <button class="btn">搜索</button>
-                <button class="btn">搜索</button>
-                <button class="btn">搜索</button>
-                <button class="btn">搜索搜索搜索搜索</button>
-                <button class="btn">搜索</button>
-            </div>
-        </div>
         <div class="container">
             <div class="modal">
                 <div class="content">
@@ -108,6 +96,20 @@
             <div class="pop-menu arrow-bottom">hehehehehehehe</div>
             <div class="pop-menu arrow-left">hehehehehehehe</div>
             <div class="pop-menu arrow-right">hehehehehehehe</div>
+        </div>
+        <div class="container">
+            <span class="pop-menu-container">
+                <div class="pop-menu-wrapper">
+                    <div class="pop-menu arrow-top">
+                        <div class="item">我的文章</div>
+                        <div class="item">我的项目</div>
+                        <div class="item sep"></div>
+                        <div class="item">我的家</div>
+                        <div class="item">消息</div>
+                    </div>
+                </div>
+                <button class="btn" data-toggle="pop-menu">点</button>
+            </span>
         </div>
         <div class="container">
             <div class="pop-menu arrow-top">
