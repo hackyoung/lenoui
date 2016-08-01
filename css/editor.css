@@ -1,0 +1,46 @@
+.editor {
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 2px;
+}
+
+.editor-toolbar-container {
+    display: inline-block;
+    width: 100%;
+}
+
+.editor-toolbar {
+    background-image: linear-gradient(top, #fff, #fefefe);
+    background-image: -moz-linear-gradient(top, #fff, #fefefe);
+    background-image: -webkit-linear-gradient(top, #fff, #fefefe);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #bbb;
+    border-radius: 2px 2px 0px 0px;
+    padding: 5px;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.editor-toolbar>.item,
+.editor-toolbar>.pop-menu-container>.item {
+    vertical-align: middle;
+    padding: 2px 5px;
+    display: inline-block;
+    color: #666;
+    font-size: 16px;
+    user-select: none;
+    -moz-user-select: none;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+.editor-toolbar>.pop-menu-container .pop-menu:before {
+    left: 12px;
+}
+.editor-toolbar>.pop-menu-container .pop-menu-wrapper {
+    left: -8px;
+}
+.editor-toolbar>.item:hover,
+.editor-toolbar>.pop-menu-container>.item:hover {
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, .6);
+    cursor: pointer;
+}
+

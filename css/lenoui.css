@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
 }
+*,
 *::before,
 *::after {
     box-sizing: border-box;
@@ -17,19 +18,22 @@ a {
 a:visited {
     color: #999;
 }
+a:hover {
+    cursor: pointer;
+}
 .btn {
     padding: .16em .5em;
     border-radius: .2em;
     border: 1px solid rgba(0,0,0,.1);
-    background: #eee linear-gradient(hsla(0,0%,100%,.2), transparent);   
+    background: #f6f6f6 linear-gradient(hsla(0,0%,100%,.3), transparent);   
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    color: #444;
+    color: #888;
     font-size: 100%;
     line-height: 1.5;
 }
 .btn:active,
 .btn.active {
-    background: linear-gradient(transparent, hsla(0,0%,100%,.2));   
+    background: linear-gradient(transparent, hsla(0,0%,100%,.3));   
 }
 .btn.big {
     font-size: 200%;
@@ -161,6 +165,7 @@ a:visited {
     cursor: pointer;
     padding: .25em;
     border-radius: .2em;
+    white-space: nowrap;
     letter-spacing: 2px; 
 }
 .pop-menu .item.sep {
@@ -188,6 +193,10 @@ a:visited {
     transition: all 0.1s ease-in;
     -webkit-transition: all 0.1s sease-in;
     -moz-transition: all 0.1s ease-in;
+}
+textarea.input {
+    resize: vertical;
+    min-height: 100px;
 }
 .input:focus {
     box-shadow: 1px 1px 5px rgba(42, 92, 170, 0.2);
@@ -235,7 +244,7 @@ blockquote,
     border-radius: 0 .2em .2em 0;
 }
 .input-line .input {
-    width: calc(100% - 1em);
+    width: 100%;
     margin: .2em 0;
 }
 .input-line.inline .input {
@@ -285,7 +294,7 @@ ul.pop-menu {
 }
 .modal>.content>.header {
     font-size: 16px;
-    height: 40px;
+    height: 50px;
     display: flex;
     display: -webkit-flex;
     justify-content: space-between;
@@ -293,23 +302,23 @@ ul.pop-menu {
     border-bottom: 1px solid rgba(0, 0, 0, .1);
     box-shadow: 0px 1px 2px rgba(0, 0, 0, .2);
 }
-.modal>.content>.header>.middle {
-    height: 30px;
-}
-.modal>.content>.header>.title {
-    width: 30px;
+.modal>.content>.header>.left {
     white-space: nowrap;
     overflow: visible;
     padding: 0px 10px;
 }
-.modal>.content>.header>.close {
+.modal>.content>.header .title {
+    max-width: 20px;
+}
+.modal>.content>.header>.right {
     color: #999;
     padding: 0px 10px;
+    white-space: nowrap;
     transition: color 0.1s ease-in;
     -moz-transition: color 0.1s ease-in;
     -moz-transition: color 0.1s ease-in;
 }
-.modal>.content>.header>.close:hover {
+.modal>.content>.header>.right:hover {
     color: red;
     cursor: pointer;
 }
@@ -320,14 +329,14 @@ ul.pop-menu {
 .layer>.content,
 .modal>.content {
     border: 1px solid rgba(0, 0, 0, .1);
-    border-radius: 2%;
+    border-radius: .2em;
     background-color: white;
     min-height: 100px;
+    min-width: 300px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, .4);
     max-width: 90vw;
     max-height: 90vh;
     transform: scale(0);
-    max-width: calc(90vw - 2px);
 }
 .modal.show>.content,
 .layer.show>.content {
@@ -337,7 +346,7 @@ ul.pop-menu {
     -webkit-transition: .3s transform;
 }
 .modal>.content .main {
-    max-height: calc(90vh - 40px);
+    max-height: calc(90vh - 50px);
     overflow: auto;
 }
 .layer>.content {
@@ -398,4 +407,72 @@ ul.pop-menu {
     transform: scale(1);
     transition: .1s transform;
     position: static;
+}
+
+.h-line {
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+    margin: 5px auto;
+    display: inline-block;
+}
+
+.v-line {
+    display: inline-block;
+    height: 100%;
+    width: 1px;
+    vertical-align: middle;
+    background-color: #eee;
+    margin: auto 5px;
+}
+.list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.list>.item {
+    margin: 5px;
+    padding: 5px;
+    border-radius: .2em;
+    color: #666;
+}
+.list>.item:hover,
+.list>.item.active {
+    background-color: rgba(0, 0, 0, .1);
+    cursor: pointer;
+}
+.nav {
+    font-size: 1em;
+}
+.nav>.item:after {
+    position: relative;
+    transform: rotate(45deg);
+    display: inline-block;
+    width: .6em;
+    height: .6em;
+    content: '';
+    background: transparent;
+    border-top: 2px solid #999;
+    border-right: 2px solid #999;
+}
+.nav>.item:last-child:after {
+    content: none;
+}
+.pop-menu-container {
+    position: relative;
+}
+.pop-menu-container .pop-menu-wrapper {
+    top: calc(100% + .625em);
+    min-width: 100%;
+    position: absolute;
+    transition: .1s transform;
+    transform: scale(0);
+}
+.pop-menu-container.active .pop-menu-wrapper {
+    transform: scale(1);
+}
+.pop-menu-container [data-toggle=pop-menu] {
+}
+.pop-menu-wrapper>.pop-menu {
+    width: 100%;
 }
