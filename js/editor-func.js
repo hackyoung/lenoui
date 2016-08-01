@@ -52,10 +52,10 @@ var EditorFunc = (function() {
             editor.getDocument().execCommand('fontSize', false, size);
         },
         foreColor: function(editor, color) {
-        
+            editor.getDocument().execCommand('foreColor', false, color);
         },
         backColor: function(editor, color) {
-        
+            editor.getDocument().execCommand('backColor', false, color);
         },
         heading: function(editor, h) {
             if (parseInt(h) <= 6 && parseInt(h) >= 0) {
