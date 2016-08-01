@@ -1,11 +1,10 @@
 var EditorFunc = (function() {
-
     var htmlFunc = {
-        link: function(editor, text, href) {
-        
+        link: function(editor, href, label) {
+            editor.getDocument().execCommand('insertHTML', false, '<a href="'+href+'">'+label+'</a>');
         },
         table: function(editor, row, col) {
-        
+
         },
         italic: function(editor) {
             editor.getDocument().execCommand('italic');
@@ -50,7 +49,7 @@ var EditorFunc = (function() {
             editor.getDocument().execCommand('justifyfull');
         },
         fontSize: function(editor, size) {
-        
+            editor.getDocument().execCommand('fontSize', false, size);
         },
         foreColor: function(editor, color) {
         
@@ -59,7 +58,11 @@ var EditorFunc = (function() {
         
         },
         heading: function(editor, h) {
-            
+            if (parseInt(h) <= 6 && parseInt(h) >= 0) {
+                editor.getDocument().execCommand('formatBlock', false, 'H'+(h+1));
+                return;
+            }
+            editor.getDocument().execCommand('formatBlock', false, h);
         },
         increaseIndent: function(editor) {
             editor.getDocument().execCommand('indent');

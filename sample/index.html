@@ -3,10 +3,10 @@
     <head>
         <title>my test</title>
         <meta charset='utf-8' />
-        <link href="css/lenoui.css" rel="stylesheet" type="text/css" />
         <meta name="viewport" content="width=device-width" />
-        <script src="js/jquery.js"></script>
-        <script src="js/lenoui.js"></script>
+        <link href="../css/lenoui.css" rel="stylesheet" type="text/css" />
+        <script src="../js/jquery.js"></script>
+        <script src="../js/lenoui.js"></script>
         <script>
         $(document).ready(function() {
             $('.modal').luiModal('modal.on.open');
@@ -27,12 +27,12 @@
             <div class="modal">
                 <div class="content">
                     <header class="header">
-                        <span class="title">开始</span>
+                        <span class="left title">开始</span>
                         <span class="middle btn-group">
                             <button class='btn active' data-toggle='tab' for='login'>登录</button>
                             <button class='btn' data-toggle='tab' for='reg'>注册</button>
                         </span>
-                        <span class="close">X</span>
+                        <span class="right close">X</span>
                     </header>
                     <section class="main">
                         <div id="login" class="form tab active" style="max-width: 500px">

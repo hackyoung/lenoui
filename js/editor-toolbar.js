@@ -1,5 +1,4 @@
 var EditorToolbar = (function() {
-
     var changeItemState = function(editor, index, active) {
         var $item = editor.$toolbarContainer.find('[data-id='+index+']');
         var type = $item.attr('data-type');
@@ -38,21 +37,23 @@ var EditorToolbar = (function() {
         func(editor);
         editor.focus();
     };
+
     var getFontSizeUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><ul class="pop-menu arrow-top"></ul></div>');
         $pop_menu_wrapper.appendTo($container);
-        var $toggle = $('<span class="item" data-toggle="pop-menu">16</span>');
+        var $toggle = $('<span class="item" title="字体大小" data-toggle="pop-menu">16</span>');
         $toggle.popMenu().appendTo($container);
         var sizes = [10, 12, 16, 18, 24, 32, 48];
-        for (var i = 0; i < sizes.length; ++i) {
-            $('<li class="item" style="font-size: '+sizes[i]+'px">'+sizes[i]+'</li>').click(function() {
+        for (var i = 0; i < sizes.length; ++i) {(function(i, item) {
+            $('<li class="item" style="font-size: '+item+'px">'+item+'</li>').click(function() {
                 var editor = $container.data('editor');
                 var setFontSize = $container.data('toolbar-item-click');
-                setFontSize(editor, sizes[i]);
+                setFontSize(editor, i+1);
                 $toggle.html(sizes[i]);
+                editor.focus();
             }).appendTo($pop_menu_wrapper.find('.pop-menu'));
-        }
+        })(i, sizes[i]); }
         return $container;
     };
 
@@ -60,15 +61,16 @@ var EditorToolbar = (function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><ul class="pop-menu arrow-top"></ul></div>');
         $pop_menu_wrapper.appendTo($container);
-        var $toggle = $('<span class="item" data-toggle="pop-menu">p</span>');
+        var $toggle = $('<span class="item" title="标题" data-toggle="pop-menu">p</span>');
         $toggle.popMenu().appendTo($container);
         var sizes = [30, 26, 22, 18, 16, 12];
         for (var i = 0; i < sizes.length; ++i) {(function(i, item) {
-            $('<li class="item" style="font-size: '+item+'px">h'+i+'</li>').click(function() {
+            $('<li class="item" style="font-size: '+item+'px">h'+(i+1)+'</li>').click(function() {
                 var editor = $container.data('editor');
                 var setHeading = $container.data('toolbar-item-click');
                 setHeading(editor, i);
-                $toggle.text('h'+i);
+                $toggle.text('h'+(i+1));
+                editor.focus();
             }).appendTo($pop_menu_wrapper.find('.pop-menu'));
         })(i, sizes[i]);}
         $('<li class="item style="font-size: 16px">p</li>').click(function() {
@@ -83,56 +85,60 @@ var EditorToolbar = (function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top"></div></div>');
         $pop_menu_wrapper.appendTo($container);
-        var $toggle = $('<span class="zmdi zmdi-format-color-text item" data-toggle="pop-menu"></span>');
-        $toggle.appendTo($container);
+        var $toggle = $('<span class="zmdi zmdi-format-color-text item" title="设置前景色" data-toggle="pop-menu"></span>');
+        $toggle.popMenu().appendTo($container);
         return $container;
     };
     var getBackColorUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top"></div></div>');
         $pop_menu_wrapper.appendTo($container);
-        var $toggle = $('<span class="item" data-toggle="pop-menu"><span class="back-color"></span></span>');
-        $toggle.appendTo($container);
+        var $toggle = $('<span class="item" data-toggle="pop-menu" title="设置背景色"><span class="back-color"></span></span>');
+        $toggle.popMenu().appendTo($container);
         return $container;
     };
 
     var getLinkUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
-        var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top" style="min-width: 300px"></div></div>');
+        var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top" style="min-width: 220px"></div></div>');
         $pop_menu_wrapper.appendTo($container);
         $('<div class="input-line">'+
-            '<label>链接名</label>'+
-            '<input class="input" />'+
+            '<input class="input" name="link" placeholder="输入链接地址" />'+
          '</div><div class="input-line">'+   
-            '<label>链接地址</label>'+
-            '<input class="input" />'+
+            '<input class="input" name="link-label" placeholder="显示的文字" />'+
         '</div><div class="input-line">'+
             '<button class="btn success" style="width: 100%">确定</button>'+
         '</div>').click(function(e) {
             return false;
-        }).appendTo($pop_menu_wrapper.find('.pop-menu'));
-        var $toggle = $('<span class="zmdi zmdi-link item" data-toggle="pop-menu"></span>');
-        $toggle.appendTo($container);
+        }).appendTo($pop_menu_wrapper.find('.pop-menu')).find('.btn').click(function() {
+            var editor = $container.data('editor');
+            var func = $container.data('toolbar-item-click');
+            func(editor, $container.find('[name=link]').val(), $container.find('[name=link-label]').val());
+            editor.focus();
+        });
+        var $toggle = $('<span class="zmdi zmdi-link item" title="添加链接" data-toggle="pop-menu"></span>');
+        $toggle.popMenu().appendTo($container);
         return $container;
     };
 
     var getTableUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
-        var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top" style="min-width: 300px"></div></div>');
+        var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top" style="width: 200px"></div></div>');
         $pop_menu_wrapper.appendTo($container);
-        $('<div class="input-line">'+
-            '<label>链接名</label>'+
-            '<input class="input" />'+
-         '</div><div class="input-line">'+   
-            '<label>链接地址</label>'+
-            '<input class="input" />'+
-        '</div><div class="input-line">'+
-            '<button class="btn success" style="width: 100%">确定</button>'+
+        $('<div class="input-line lr">'+
+            '<input class="input" name="row" placeholder="行" style="width: 50px" />'+
+            '<input class="input" name="col" placeholder="列" style="width: 50px" />'+
+            '<button class="btn success">确定</button>'+
         '</div>').click(function(e) {
             return false;
-        }).appendTo($pop_menu_wrapper.find('.pop-menu'));
-        var $toggle = $('<span class="zmdi zmdi-grid item" data-toggle="pop-menu"></span>');
-        $toggle.appendTo($container);
+        }).appendTo($pop_menu_wrapper.find('.pop-menu')).find('.btn').click(function() {
+            var editor = $container.data('editor');
+            var func = $container.data('toolbar-item-click');
+            func(editor, $container.find('[name=row]').val(), $container.find('[name=col]').val());
+            editor.focus();
+        });
+        var $toggle = $('<span class="zmdi zmdi-grid item" title="添加表格" data-toggle="pop-menu"></span>');
+        $toggle.popMenu().appendTo($container);
         return $container;
     };
 
@@ -248,7 +254,7 @@ var EditorToolbar = (function() {
         } else {
             var size = sizearray[sizeindex - 1];
         }
-        this.editor.$toolbarContainer.find('[data-id=fontsize]')
+        this.editor.$toolbarContainer.find('[data-id=fontSize]')
             .find('[data-toggle=pop-menu]')
             .html(size);
 
@@ -260,6 +266,11 @@ var EditorToolbar = (function() {
         this.editor.$toolbarContainer.find('[data-id=heading]')
             .find('[data-toggle=pop-menu]')
             .html(formatblock);
+    }
+    toolbar.prototype.closePopMenu = function() {
+        this.editor.$toolbarContainer.find('[data-toggle=pop-menu]').each(function() {
+            $(this).parent().removeClass('active');
+        });
     }
     return {
         items: toolbarItems,

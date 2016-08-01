@@ -465,7 +465,7 @@ ul.pop-menu {
     top: calc(100% + .625em);
     min-width: 100%;
     position: absolute;
-    transition: .1s transform;
+    transition: .15s transform;
     transform: scale(0);
 }
 .pop-menu-container.active .pop-menu-wrapper {

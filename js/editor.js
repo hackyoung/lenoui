@@ -1,5 +1,4 @@
 var LenoEditor = (function() {
-
     var defaultConfig = {
         toolbar : [
             'selectAll', 'copy', 'cut', 'paste', 'sep',
@@ -31,11 +30,11 @@ var LenoEditor = (function() {
             editor.$toolbarContainer = opts.toolbarContainer;
         }
         editor.$toolbarContainer.appendTo($root);
-        editor.$iframe = $('<iframe src=""></iframe>');
-        editor.$iframe.attr('width', opts.width);
-        editor.$iframe.attr('height', opts.height);
-        editor.$iframe.attr('frameborder', 0);
-        editor.$iframe.appendTo($root);
+        editor.$iframe = $('<iframe src=""></iframe>')
+                .attr('width', opts.width)
+                .attr('height', opts.height)
+                .attr('frameborder', 0)
+                .appendTo($root);
         editor.$statusbar = $('<div class="editor-statusbar lr"><span data-id="at"></span></div>');
         editor.$statusbar.appendTo($root);
         editor.toolbar = EditorToolbar.init(editor);
@@ -69,13 +68,12 @@ var LenoEditor = (function() {
             editor.resizeContent();
             editor.toolbar.update();
         }).click(function() {
-            editor.toolbar.update();
+            editor.focus();
         });
     }
     editor.prototype.getDocument = function() {
         return this.$iframe.get(0).contentWindow.document;
     }
-
     editor.prototype.setContent = function(content) {
         var doc = this.getDocument();
         var body = doc.getElementsByTagName('body');
@@ -84,7 +82,6 @@ var LenoEditor = (function() {
         this.resizeContent();
         return this;
     }
-
     editor.prototype.resizeContent = function() {
         var me = this;
         var toolbarHeight = me.$toolbarContainer.height();
@@ -117,22 +114,24 @@ var LenoEditor = (function() {
     editor.prototype.focus = function() {
         this.$iframe.focus();
         this.toolbar.update();
+        this.toolbar.closePopMenu();
         var focus = this.config.callback.focus;
         if (typeof focus == 'function') {
             focus(this);
         }
         return this;
     }
+    editor.prototype.getContent = function() {
+        var doc = this.getDocument();
+    }
     return editor;
 })();
 
 (function($) {
-
     $.fn.configEditor = function(config) {
         $(this).data('editor-config', config);
         return $(this);
     };
-
     $.fn.getEditor = function() {
         var editor = $(this).data('editor');
         if (editor) {
@@ -140,12 +139,10 @@ var LenoEditor = (function() {
         }
         return new LenoEditor($(this));
     };
-
     $.fn.listen = function(callback) {
         $(this).data('toolbar-item-click', callback);
         return $(this);
     };
-
     $.fn.ofEditor = function(editor) {
         $(this).data('editor', editor);
         return $(this);

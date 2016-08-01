@@ -15,13 +15,13 @@
     }
     function registerOnClose($modal, onclose) {
         if (typeof onclose !== 'function') {
-            throw 'onclose not a function';
+            return;
         }
         $modal.data('onClose', onclose);
     }
     function registerOnOpen($modal, onopen) {
         if (typeof onopen !== 'function') {
-            throw 'onclose not a function';
+            return;
         }
         $modal.data('onOpen', onopen);
     }
@@ -116,18 +116,17 @@ $(function() {
      * 初始化pop-menu
      */
     $('[data-toggle=pop-menu]').click(function(e) {
-        e.stopPropagation();
         var $p = $(this).parent();
         if ($p.hasClass('active')) {
             $p.removeClass('active');
             return false;
         }
+        $p.addClass('active');
         return false;
     });
     $(document).click(function() {
         $('[data-toggle=pop-menu]').each(function() {
-            var $p = $(this).parent();
-            $p.removeClass('active');
+            $(this).parent().removeClass('active');
         });
     });
 });
