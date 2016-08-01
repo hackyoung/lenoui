@@ -26,10 +26,12 @@ var LenoEditor = (function() {
         editor.$root = $root;
         if (!opts.toolbarContainer) {
             editor.$toolbarContainer = $('<div class="editor-toolbar-container"></div>');
+            editor.$toolbarContainer.appendTo($root);
+            editor.toolbarInside = true;
         } else {
             editor.$toolbarContainer = opts.toolbarContainer;
+            editor.toolbarInside = false;
         }
-        editor.$toolbarContainer.appendTo($root);
         editor.$iframe = $('<iframe src=""></iframe>')
                 .attr('width', opts.width)
                 .attr('height', opts.height)
@@ -84,13 +86,17 @@ var LenoEditor = (function() {
     }
     editor.prototype.resizeContent = function() {
         var me = this;
-        var toolbarHeight = me.$toolbarContainer.height();
         var doc = me.getDocument();
         var bodys = doc.getElementsByTagName('body');
-        var height = Math.max(
-            bodys[0].offsetHeight + toolbarHeight + 30,
-            me.config.height
-        );
+        if (this.toobarInside) {
+            var toolbarHeight = me.$toolbarContainer.height();
+            var height = Math.max(
+                bodys[0].offsetHeight + toolbarHeight + 30,
+                me.config.height
+            );
+        } else {
+            var height = Math.max(me.config.height, bodys[0].offsetHeight + 30);
+        }
         me.resize(me.config.width, height);
     }
     editor.prototype.resize = function(width, height)
@@ -101,13 +107,16 @@ var LenoEditor = (function() {
 
         me.$root.css('width', width);
         me.$root.height(height);
-
-        var $toolbar = me.$toolbarContainer.find('.editor-toolbar');
-        $toolbar.width(me.$toolbarContainer.width() - 1);
-        me.$toolbarContainer.height($toolbar.height());
+        if (this.toolbarInside) {
+            var $toolbar = me.$toolbarContainer.find('.editor-toolbar');
+            $toolbar.width(me.$toolbarContainer.width() - 1);
+            me.$toolbarContainer.height($toolbar.height());
+            var frameHeight = height - me.$toolbarContainer.height() - 30;
+        } else {
+            var frameHeight = height - 30;   
+        }
 
         me.$iframe.attr('width', width);
-        var frameHeight = height - me.$toolbarContainer.height() - 30;
         me.$iframe.attr('height', frameHeight);
         return me;
     }
