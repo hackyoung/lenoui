@@ -93,7 +93,7 @@ var EditorFunc = (function() {
 
     return {
         hf: htmlFunc,
-        df: markdownFunc,
+        mf: markdownFunc,
         init: function(editor) {
             return new editor_func(editor);
         }

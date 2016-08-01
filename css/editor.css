@@ -2,12 +2,10 @@
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 2px;
 }
-
 .editor-toolbar-container {
     display: inline-block;
     width: 100%;
 }
-
 .editor-toolbar {
     background-image: linear-gradient(top, #fff, #fefefe);
     background-image: -moz-linear-gradient(top, #fff, #fefefe);
@@ -23,7 +21,6 @@
     align-content: center;
     flex-wrap: wrap;
 }
-
 .editor-toolbar>.item,
 .editor-toolbar>.pop-menu-container>.item {
     vertical-align: middle;
@@ -45,6 +42,7 @@
     display: inline-block;
     border: 1px solid rgba(0, 0, 0, .2);
     background-color: white;
+    vertical-align: top;
 }
 .editor-toolbar>.pop-menu-container .pop-menu:before {
     left: 12px;

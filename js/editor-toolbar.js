@@ -20,7 +20,6 @@ var EditorToolbar = (function() {
             return;
         }
     }
-
     var normalInitToolbarItem = function($item) {
         var editor = $item.data('editor');
         var func = $item.data('toolbar-item-click');
@@ -39,7 +38,6 @@ var EditorToolbar = (function() {
         func(editor);
         editor.focus();
     };
-
     var getFontSizeUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><ul class="pop-menu arrow-top"></ul></div>');
@@ -81,7 +79,6 @@ var EditorToolbar = (function() {
         }).appendTo($pop_menu_wrapper.find('.pop-menu'));
         return $container;
     };
-
     var getForeColorUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top"></div></div>');
@@ -90,7 +87,6 @@ var EditorToolbar = (function() {
         $toggle.appendTo($container);
         return $container;
     };
-
     var getBackColorUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top"></div></div>');
@@ -147,29 +143,29 @@ var EditorToolbar = (function() {
         heading : getHeadingUI(),
         link : getLinkUI(),
         table: getTableUI(),
-        image : $('<span class="zmdi zmdi-collection-image item" for="#editor-select-image"></span>'),
-        undo: $('<span class="zmdi zmdi-undo item" data-type="single-select" data-group="align"></span>').click(function() {
+        image : $('<span class="zmdi zmdi-collection-image item" title="插入图片" for="#editor-select-image"></span>'),
+        undo: $('<span class="zmdi zmdi-undo item" title="撤销"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
-        redo: $('<span class="zmdi zmdi-redo item" data-type="single-select" data-group="align"></span>').click(function() {
+        redo: $('<span class="zmdi zmdi-redo item" title="重做"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
-        alignLeft: $('<span class="zmdi zmdi-format-align-left item" data-type="single-select" data-group="align"></span>').click(function() {
+        alignLeft: $('<span class="zmdi zmdi-format-align-left item" title="左对齐" data-type="single-select" data-group="align"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
-        increaseIndent: $('<span class="zmdi zmdi-format-indent-increase item" data-type="single-select" data-group="align"></span>').click(function() {
+        alignRight: $('<span class="zmdi zmdi-format-align-right item" title="右对齐" data-type="single-select" data-group="align"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
-        decreaseIndent: $('<span class="zmdi zmdi-format-indent-decrease item" data-type="single-select" data-group="align"></span>').click(function() {
+        alignCenter: $('<span class="zmdi zmdi-format-align-center item" title="居中对齐" data-type="single-select" data-group="align"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
-        alignRight: $('<span class="zmdi zmdi-format-align-right item" data-type="single-select" data-group="align"></span>').click(function() {
+        alignFull: $('<span class="zmdi zmdi-format-align-justify item" title="两端对齐" data-type="single-select" data-group="align"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
-        alignCenter: $('<span class="zmdi zmdi-format-align-center item" data-type="single-select" data-group="align"></span>').click(function() {
+        increaseIndent: $('<span class="zmdi zmdi-format-indent-increase item" title="增加缩进"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
-        alignFull: $('<span class="zmdi zmdi-format-align-justify item" data-type="single-select" data-group="align"></span>').click(function() {
+        decreaseIndent: $('<span class="zmdi zmdi-format-indent-decrease item" title="减少缩进"></span>').click(function() {
             normalInitToolbarItem($(this));
         }),
         underline : $('<span class="zmdi zmdi-format-underlined item" data-type="toggle" title="下划线"></span>').click(function() {
