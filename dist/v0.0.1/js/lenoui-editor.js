@@ -564,7 +564,8 @@ var LenoEditor = (function() {
 
     var constructUI = function(editor, $root) {
         var opts = editor.config;   
-        $root.addClass('editor');
+        var content = $root.html();
+        $root.empty().addClass('editor');
         editor.$root = $root;
         if (!opts.toolbarContainer) {
             editor.$toolbarContainer = $('<div class="editor-toolbar-container"></div>');
@@ -582,15 +583,17 @@ var LenoEditor = (function() {
         editor.$statusbar = $('<div class="editor-statusbar lr"><span data-id="at"></span></div>');
         editor.$statusbar.appendTo($root);
         editor.toolbar = EditorToolbar.init(editor);
+        return content;
     };
 
     var editor = function($root) {
         var self = this;
         self.config = defaultConfig;
         $.extend(true, self.config, $root.data('editor-config') || {});
-        constructUI(self, $root);
+        var content = constructUI(self, $root);
         window.onload = function() {
             editor.init(self);
+            self.setContent(content);
         };
     };
 
@@ -673,7 +676,6 @@ var LenoEditor = (function() {
         me.$iframe.attr('height', frameHeight);
         return me;
     };
-
     editor.prototype.focus = function() {
         this.$iframe.focus();
         this.toolbar.update();
@@ -698,8 +700,15 @@ var LenoEditor = (function() {
     editor.prototype.getW = function() {
         return this.$root.width();
     };
-    editor.prototype.getContent = function() {
+    editor.prototype.getHtml = function() {
         var doc = this.getDocument();
+        var body = doc.getElementsByTagName('body');
+        return $(body[0]).html();
+    };
+    editor.prototype.getText = function() {
+        var doc = this.getDocument();
+        var body = doc.getElementsByTagName('body');
+        return $(body[0]).text();
     };
     return editor;
 })();
@@ -711,10 +720,10 @@ var LenoEditor = (function() {
     };
     $.fn.getEditor = function() {
         var editor = $(this).data('editor');
-        if (editor) {
-            return editor;
+        if (!editor) {
+            $(this).data('editor', new LenoEditor($(this)));
         }
-        return new LenoEditor($(this));
+        return $(this).data('editor');
     };
     $.fn.listen = function(callback) {
         $(this).data('toolbar-item-click', callback);
