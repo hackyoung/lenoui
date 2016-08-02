@@ -91,16 +91,16 @@
     border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
-.leno-color-selector {
+.color-selector {
     width: 160px;
 }
-.selector-item {
+.color-selector .item {
     width: 20px;
     height: 20px;
     border: 1px solid #999;
     display: inline-block;
 }
 
-.selector-item:hover {
+.color-selector .item:hover {
     cursor: pointer;
 }

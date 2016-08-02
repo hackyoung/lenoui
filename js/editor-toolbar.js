@@ -152,13 +152,19 @@ var EditorToolbar = (function() {
         return $container;
     };
 
+    var createCodeUI = function() {
+        var toggle = $('<span></span>').addClass('zmdi zmdi-code item')
+            .attr('插入代码');
+        return toggle;
+    };
     var toolbarItems = {
         foreColor : createForeColorUI(),
         backColor : createBackColorUI(),
         fontSize : createFontSizeUI(),
         heading : createHeadingUI(),
         link : createLinkUI(),
-        table: createTableUI(),
+        table : createTableUI(),
+        code : createCodeUI(),
         image : $('<span></span>').addClass('zmdi zmdi-collection-image item')
             .attr('title', '插入图片')
             .attr('for', '#editor-select-image'),
@@ -170,6 +176,12 @@ var EditorToolbar = (function() {
         ),
         redo: $('<span></span>').addClass("zmdi zmdi-redo item")
             .attr('title', '重做')
+            .click(function() {
+                normalInitToolbarItem($(this)); 
+            }
+        ),
+        clear: $('<span></span>').addClass("zmdi zmdi-format-clear item")
+            .attr('title', '清除格式')
             .click(function() {
                 normalInitToolbarItem($(this)); 
             }

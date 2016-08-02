@@ -1,5 +1,11 @@
 var EditorFunc = (function() {
     var htmlFunc = {
+        code : function(editor) {
+            editor.getDocument().execCommand('insertHTML', '<pre></pre>');
+        },
+        clear: function(editor) {
+            editor.getDocument().execCommand('removeFormat');
+        },
         link: function(editor, href, label) {
             editor.getDocument().execCommand('insertHTML', false, '<a href="'+href+'">'+label+'</a>');
         },

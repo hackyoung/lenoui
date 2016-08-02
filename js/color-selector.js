@@ -3,14 +3,17 @@ var ColorSelector = function(onSelect) {
     onSelect = onSelect || function() {};
 
     var colors = ['#000000', '#FFFFFF', '#FF0000', '#FF7F00',
-        '#FFFF00', '#00FFFF', '#0000FF', '#8B00FF'];
-    var node = $('<div class="leno-color-selector"></div>');    
+        '#FFFF00', '#00FFFF', '#0000FF', '#0066FF'];
+    var node = $('<div class="color-selector"></div>');    
     var his = $('<div data-id="cs-f"></div>').css({
         borderBottom: '1px solid #999',
         margin: '0px 0px 5px 0px'
     }).appendTo(node);
     for(var i = 0; i < colors.length; ++i) {
-        $('<span class="selector-item" data-id="'+colors[i]+'" style="background-color: '+colors[i]+'"></span>').appendTo(his);
+        $('<span class="item"></span>').attr('data-id', colors[i])
+            .attr('title', colors[i])
+            .css('background-color', colors[i])
+            .appendTo(his);
     }
     var content = $('<div class="selector-item-container"></div>');
     content.appendTo(node);
@@ -42,11 +45,12 @@ var ColorSelector = function(onSelect) {
                 var rgb = red+green+blue;
                 $('<span data-id="#'+rgb+'"></span>').css({
                     backgroundColor: '#'+rgb
-                }).addClass('selector-item').appendTo(container);
+                }).addClass('item').attr('title', '#'+rgb)
+                .appendTo(container);
             }
         }
     }
-    node.find('.selector-item').click(function() {
+    node.find('.item').click(function() {
         var color = $(this).attr('data-id');
         onSelect(color);
     });

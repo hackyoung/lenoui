@@ -2,7 +2,7 @@ var LenoEditor = (function() {
     var defaultConfig = {
         toolbar : [
             'selectAll', 'copy', 'cut', 'paste', 'sep',
-            'bold', 'italic', 'underline', 'fontSize', 'foreColor', 'backColor', 'sep',
+            'bold', 'italic', 'underline', 'fontSize', 'foreColor', 'backColor', 'clear', 'code',  'sep',
             'alignLeft', 'alignCenter', 'alignRight', 'alignFull', 'sep',
             'heading', 'orderedList', 'unorderedList', 'sep',
             'image', 'link', 'table', 'sep',
