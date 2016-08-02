@@ -593,6 +593,7 @@ var LenoEditor = (function() {
             editor.init(self);
         };
     };
+
     editor.init = function(editor) {
         var doc = editor.getDocument();
         doc.designMode = 'On';
@@ -602,6 +603,12 @@ var LenoEditor = (function() {
         var toolbar_pos = $toolbar.pos();
         $(window).scroll(function() {
             $toolbar.css('top', Math.max(toolbar_pos.y - 18, $(window).scrollTop() + editor.config.toolbarFixedTop));
+            var now_toolbar_pos = $toolbar.pos();
+            if (now_toolbar_pos.y + $toolbar.height() > editor.getY() + editor.getH()) {
+                $toolbar.css('transform', 'scale(0)');
+                return;
+            }
+            $toolbar.css('transform', 'scale(1)');
         });
         $(window).resize(function() {
             editor.resize();
@@ -615,9 +622,11 @@ var LenoEditor = (function() {
             editor.focus();
         });
     };
+
     editor.prototype.getDocument = function() {
         return this.$iframe.get(0).contentWindow.document;
     };
+
     editor.prototype.setContent = function(content) {
         var doc = this.getDocument();
         var body = doc.getElementsByTagName('body');
@@ -626,6 +635,7 @@ var LenoEditor = (function() {
         this.resizeContent();
         return this;
     };
+
     editor.prototype.resizeContent = function() {
         var me = this;
         var doc = me.getDocument();
@@ -641,6 +651,7 @@ var LenoEditor = (function() {
         }
         me.resize(me.config.width, height);
     };
+
     editor.prototype.resize = function(width, height)
     {
         var me = this;
@@ -662,6 +673,7 @@ var LenoEditor = (function() {
         me.$iframe.attr('height', frameHeight);
         return me;
     };
+
     editor.prototype.focus = function() {
         this.$iframe.focus();
         this.toolbar.update();
@@ -671,6 +683,20 @@ var LenoEditor = (function() {
             focus(this);
         }
         return this;
+    };
+    editor.prototype.getY = function() {
+        var pos = this.$root.pos();
+        return pos.y;
+    };
+    editor.prototype.getX = function() {
+        var pos = this.$root.pos();
+        return pos.x;
+    };
+    editor.prototype.getH = function() {
+        return this.$root.height();
+    };
+    editor.prototype.getW = function() {
+        return this.$root.width();
     };
     editor.prototype.getContent = function() {
         var doc = this.getDocument();

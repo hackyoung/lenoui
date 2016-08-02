@@ -61,6 +61,12 @@ var LenoEditor = (function() {
         var toolbar_pos = $toolbar.pos();
         $(window).scroll(function() {
             $toolbar.css('top', Math.max(toolbar_pos.y - 18, $(window).scrollTop() + editor.config.toolbarFixedTop));
+            var now_toolbar_pos = $toolbar.pos();
+            if (now_toolbar_pos.y + $toolbar.height() > editor.getY() + editor.getH()) {
+                $toolbar.css('transform', 'scale(0)');
+                return;
+            }
+            $toolbar.css('transform', 'scale(1)');
         });
         $(window).resize(function() {
             editor.resize();
@@ -136,11 +142,24 @@ var LenoEditor = (function() {
         }
         return this;
     };
+    editor.prototype.getY = function() {
+        var pos = this.$root.pos();
+        return pos.y;
+    };
+    editor.prototype.getX = function() {
+        var pos = this.$root.pos();
+        return pos.x;
+    };
+    editor.prototype.getH = function() {
+        return this.$root.height();
+    };
+    editor.prototype.getW = function() {
+        return this.$root.width();
+    };
     editor.prototype.getContent = function() {
         var doc = this.getDocument();
     };
     return editor;
-
 })();
 
 (function($) {
