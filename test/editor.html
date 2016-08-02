@@ -14,6 +14,14 @@
         <script src="../src/js/editor-toolbar.js"></script>
         <script src="../src/js/editor.js"></script>
         <script>
+        var getcontent = function() {
+            var content = $('#editor').getEditor().getContent();
+            console.log(content);
+        }
+        var gettext = function() {
+            var content = $('#editor').getEditor().getText();
+            console.log(content);
+        }
         $(document).ready(function() {
             $('#editor').configEditor({
 //                toolbarContainer: $('#toolbarContainer')
@@ -33,8 +41,11 @@
         <div id="toolbarContainer"></div>
         <div class="editor-container">
              <div id="editor">
+                 hello world
              </div>
         </div>
+        <button class="btn" onclick="getcontent()">获取内容</button>
+        <button class="btn" onclick="gettext()">获取纯文本</button>
         <div style="height: 10000px"></div>
     </body>
 </html>
