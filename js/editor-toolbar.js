@@ -319,10 +319,15 @@ var EditorToolbar = (function() {
         changeItemState(this.editor, 'bold', doc.queryCommandState('bold'));
         changeItemState(this.editor, 'italic', doc.queryCommandState('italic'));
         changeItemState(this.editor, 'underline', doc.queryCommandState('underline'));
-        changeItemState(this.editor, 'alignLeft', doc.queryCommandState('justifyleft'));
-        changeItemState(this.editor, 'alignRight', doc.queryCommandState('justifyright'));
-        changeItemState(this.editor, 'alignCenter', doc.queryCommandState('justifycenter'));
-        changeItemState(this.editor, 'alignFull', doc.queryCommandState('justifyfull'));
+        if (doc.queryCommandState('justifyleft')) {
+            changeItemState(this.editor, 'alignLeft', true);
+        } else if (doc.queryCommandState('justifyright')) {
+            changeItemState(this.editor, 'alignRight', true);
+        } else if (doc.queryCommandState('justifycenter')) {
+            changeItemState(this.editor, 'alignCenter', true);
+        } else if (doc.queryCommandState('justifyfull')) {
+            changeItemState(this.editor, 'alignFull', true);
+        }
 
         this.editor.$toolbarContainer.find('[data-id=foreColor]')
             .find('[data-toggle=pop-menu]')
