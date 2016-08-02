@@ -88,7 +88,7 @@ var EditorFunc = (function() {
 
     var editor_func = function(editor) {
         this.editor = editor;
-    }
+    };
 
     editor_func.prototype.getFunc = function(index) {
         var type = this.editor.config.type || 'html';
@@ -98,7 +98,7 @@ var EditorFunc = (function() {
             var func = dropdownFunc;
         }
         return func[index];
-    }
+    };
 
     return {
         hf: htmlFunc,

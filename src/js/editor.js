@@ -40,7 +40,7 @@ var LenoEditor = (function() {
         editor.$statusbar = $('<div class="editor-statusbar lr"><span data-id="at"></span></div>');
         editor.$statusbar.appendTo($root);
         editor.toolbar = EditorToolbar.init(editor);
-    }
+    };
 
     var editor = function($root) {
         var self = this;
@@ -50,7 +50,8 @@ var LenoEditor = (function() {
         window.onload = function() {
             editor.init(self);
         };
-    }
+    };
+
     editor.init = function(editor) {
         var doc = editor.getDocument();
         doc.designMode = 'On';
@@ -72,10 +73,12 @@ var LenoEditor = (function() {
         }).click(function() {
             editor.focus();
         });
-    }
+    };
+
     editor.prototype.getDocument = function() {
         return this.$iframe.get(0).contentWindow.document;
-    }
+    };
+
     editor.prototype.setContent = function(content) {
         var doc = this.getDocument();
         var body = doc.getElementsByTagName('body');
@@ -83,7 +86,8 @@ var LenoEditor = (function() {
         body[0].innerHTML = content;
         this.resizeContent();
         return this;
-    }
+    };
+
     editor.prototype.resizeContent = function() {
         var me = this;
         var doc = me.getDocument();
@@ -98,7 +102,8 @@ var LenoEditor = (function() {
             var height = Math.max(me.config.height, bodys[0].offsetHeight + 30);
         }
         me.resize(me.config.width, height);
-    }
+    };
+
     editor.prototype.resize = function(width, height)
     {
         var me = this;
@@ -119,7 +124,8 @@ var LenoEditor = (function() {
         me.$iframe.attr('width', width);
         me.$iframe.attr('height', frameHeight);
         return me;
-    }
+    };
+
     editor.prototype.focus = function() {
         this.$iframe.focus();
         this.toolbar.update();
@@ -129,11 +135,12 @@ var LenoEditor = (function() {
             focus(this);
         }
         return this;
-    }
+    };
     editor.prototype.getContent = function() {
         var doc = this.getDocument();
-    }
+    };
     return editor;
+
 })();
 
 (function($) {

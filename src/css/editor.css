@@ -1,0 +1,106 @@
+.editor {
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 2px;
+}
+.editor-toolbar-container {
+    display: inline-block;
+    width: 100%;
+}
+.editor-toolbar {
+    background-image: linear-gradient(top, #fff, #fefefe);
+    background-image: -moz-linear-gradient(top, #fff, #fefefe);
+    background-image: -webkit-linear-gradient(top, #fff, #fefefe);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #bbb;
+    border-radius: 2px 2px 0px 0px;
+    position: absolute;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.editor-toolbar>.item,
+.editor-toolbar>.pop-menu-container>.item {
+    vertical-align: middle;
+    padding: 2px 4px;
+    margin: 3px 2px;
+    display: inline-block;
+    color: #666;
+    font-size: 16px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0);
+    max-height: 22px;
+}
+.editor-toolbar>.pop-menu-container>.item>.back-color {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, .2);
+    background-color: white;
+    vertical-align: top;
+}
+.editor-toolbar>.pop-menu-container .pop-menu:before {
+    left: 12px;
+}
+.editor-toolbar>.pop-menu-container .pop-menu-wrapper {
+    left: -4px;
+}
+.editor-toolbar>.item:hover,
+.editor-toolbar>.pop-menu-container>.item:hover {
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, .6);
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .2);
+}
+.editor-toolbar>.item.disabled,
+.editor-toolbar>.pop-menu-container>.item.disabled {
+    color: #ddd;
+}
+.editor-toolbar>.item.disabled:hover,
+.editor-toolbar>.pop-menu-container>.item.disabled:hover {
+    cursor: auto;
+    background-color: rgba(0, 0, 0, 0);
+}
+.editor-toolbar>.item.active,
+.editor-toolbar>.pop-menu-container>.item.active {
+    background-color: #bbb;
+    background-image: linear-gradient(top, #eee, #fff);
+    background-image: -moz-linear-gradient(top, #eee, #fff);
+    background-image: -webkit-linear-gradient(top, #eee, #fff);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3) inset;
+    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3) inset;
+    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3) inset;
+    border: 1px solid #999;
+    border-radius: 2px;
+}
+.editor-toolbar>.sep {
+    height: 16px;
+    width: 2px;
+    margin: 0px 3px;
+    display: inline-block;
+    background-color: #999;
+}
+.editor .editor-statusbar {
+    height: 22px;
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+.color-selector {
+    width: 160px;
+}
+.color-selector .item {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999;
+    display: inline-block;
+}
+
+.color-selector .item:hover {
+    cursor: pointer;
+}

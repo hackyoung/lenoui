@@ -1,5 +1,4 @@
 var ColorSelector = function(onSelect) {
-
     onSelect = onSelect || function() {};
 
     var colors = ['#000000', '#FFFFFF', '#FF0000', '#FF7F00',
