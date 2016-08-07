@@ -1,8 +1,12 @@
-(function($) {
+var lenoui = (function($) {
     function openModal($modal) {
         var on = $modal.data('onOpen');
         if (typeof on === 'function') {
             on($modal);
+        }
+        var tab = $modal.data('tab');
+        if (tab) {
+            $.activeTag(tab);
         }
         $modal.addClass('show');
     }
@@ -62,8 +66,76 @@
         });
         return $(this);
     }
+    $.fn.form = function() {
+        var $me = $(this);
+        var url = $me.attr('href'); 
+        var method = $me.attr('data-method') || 'get';
+        var redirect = $me.attr('data-redirect');
+        var success = $me.data('success') || function(res) {
+            if (!redirect) {
+                return;
+            }
+            window.location.href = redirect;
+        };
+        var error = $me.data('error');
+        $me.find('[data-id=submit]').click(function() {
+            var data = {};
+            var error = false;
+            $me.find('input, textarea, select').each(function() {
+                var $item = $(this);
+                var regexp = $item.attr('regexp');
+                var val = $item.val();
+                if (regexp && !(new RegExp(regexp)).test($item.val())) {
+                    error = true;   
+                    lenoui.alert($item.attr('error-msg') || '请检查参数');
+                }
+                data[$item.attr('name')] = val;
+            });
+            data._method = method;
+            if (error) {
+                return;
+            }
+            var before = $me.data('before');
+            if (typeof before == 'function' && !before.call($me, data)) {
+                return;
+            }
+            lenoui.ajax({
+                url: url,
+                data: data,
+                success: success,
+                error: error || function(res) {
+                    lenoui.alert(res.responseText);
+                }
+            });
+        });
+    };
     $.activeTag = function(id) {
         $('[data-toggle=tab]').filter('[for='+id+']').click();
+    };
+
+    var lenoui_alert = function(msg) {
+        alert(msg);
+    };
+
+    var lenoui_ajax = function(opts) {
+        var timeout = 20000;   // 20秒超时
+        $.ajax({
+            url: opts.url, 
+            type: opts.data._method !== 'get' ? 'POST' : 'GET',
+            timeout: timeout,
+            data: opts.data,
+            complete: function(res) {
+                if (res.status == 200) {
+                    opts.success(res);
+                    return;
+                }
+                opts.error(res);
+            },
+        });
+    };
+    return {
+        alert : lenoui_alert,
+        ajax: lenoui_ajax
     };
 })(jQuery);
 
@@ -73,7 +145,12 @@ $(function() {
      */
     $('[data-toggle=modal]').click(function() {
         var selector = $(this).attr('for');
-        $(selector).luiModal('modal.open');
+        var tab = $(this).attr('data-tab');
+        var $modal = $(selector);
+        if (tab) {
+            $modal.data('tab', tab);
+        }
+        $modal.luiModal('modal.open');
     });
     /**
      * 初始化modal
@@ -124,9 +201,37 @@ $(function() {
         $p.addClass('active');
         return false;
     });
+    $('.pop-menu-container .pop-menu').click(function() {
+        return false;
+    });
     $(document).click(function() {
         $('[data-toggle=pop-menu]').each(function() {
             $(this).parent().removeClass('active');
         });
+    });
+    /**
+     * 初始化fixedable
+     */
+    $('.fixedable').each(function() {
+        var $content = $(this).find('.fixedable-content');
+        $content.width($(this).width());
+        $(this).height($content.height());
+    });
+    $(window).scroll(function() {
+        $('.fixedable').each(function() {
+            var base = $(this).pos().y;
+            var other = $(window).scrollTop() + (parseInt($(this).attr('data-fixedable-base')) || 0);
+            $(this).find('.fixedable-content').css('top', Math.max(base, other));
+        });
+    }).resize(function() {
+        $('.fixedable').each(function() {
+            var $content = $(this).find('.fixedable-content');
+            $content.width($(this).width());
+            $(this).height($content.height());
+        });
+    });
+
+    $('.form').each(function() {
+        $(this).form();
     });
 });

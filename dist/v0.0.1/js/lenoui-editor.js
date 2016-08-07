@@ -54,91 +54,107 @@ var ColorSelector = function(onSelect) {
         onSelect(color);
     });
     return node;
-};
+}
+
 
 var EditorFunc = (function() {
-    var htmlFunc = {
-        code : function(editor) {
-            editor.getDocument().execCommand('insertHTML', '<pre></pre>');
-        },
-        clear: function(editor) {
-            editor.getDocument().execCommand('removeFormat');
-        },
-        link: function(editor, href, label) {
-            editor.getDocument().execCommand('insertHTML', false, '<a href="'+href+'">'+label+'</a>');
-        },
-        table: function(editor, row, col) {
 
+    var htmlFunc = {
+        code : function() {
+            this.editor.getDocument().execCommand(
+                'insertHTML', '<pre></pre>'
+            );
         },
-        italic: function(editor) {
-            editor.getDocument().execCommand('italic');
+        clear: function() {
+            this.editor.getDocument().execCommand('removeFormat');
         },
-        bold: function(editor) {
-            editor.getDocument().execCommand('bold');
+        link: function(href, label) {
+            this.editor.getDocument().execCommand(
+                'insertHTML', false, '<a href="'+href+'">'+label+'</a>'
+            );
         },
-        underline: function(editor) {
-            editor.getDocument().execCommand('underline');
+        table: function(row, col) {
+            var $table = $('<table></table>');
+            for(var i = 0; i < row; ++i) {
+                var $tr = $('<tr></tr>').appendTo($table);
+                for(var j = 0; j < col; ++j) {
+                    $('<td></td>').appendTo($tr);
+                }
+            }
+            this.editor.getDocument().execCommand(
+                'insertHTML', false, $('<div></div>').append($table).html()
+            );
+            return $table;
         },
-        selectAll: function(editor) {
-            editor.getDocument().execCommand('selectAll');
+        italic: function() {
+            this.editor.getDocument().execCommand('italic');
         },
-        copy: function(editor) {
-            editor.getDocument().execCommand('copy');
+        bold: function() {
+            this.editor.getDocument().execCommand('bold');
         },
-        cut: function(editor) {
-            editor.getDocument().execCommand('cut');
+        underline: function() {
+            this.editor.getDocument().execCommand('underline');
         },
-        paste: function(editor) {
-            editor.getDocument().execCommand('paste');
+        selectAll: function() {
+            this.editor.getDocument().execCommand('selectAll');
         },
-        orderedList: function(editor) {
-            editor.getDocument().execCommand('insertorderedlist');
+        copy: function() {
+            this.editor.getDocument().execCommand('copy');
         },
-        unorderedList: function(editor) {
-            editor.getDocument().execCommand('insertunorderedlist');
+        cut: function() {
+            this.editor.getDocument().execCommand('cut');
         },
-        image: function(editor, url) {
-            editor.getDocument().execCommand('insertimage', url);
+        paste: function() {
+            this.editor.getDocument().execCommand('paste');
         },
-        alignLeft: function(editor) {
-            editor.getDocument().execCommand('justifyleft');
+        orderedList: function() {
+            this.editor.getDocument().execCommand('insertorderedlist');
         },
-        alignCenter: function(editor) {
-            editor.getDocument().execCommand('justifycenter');
+        unorderedList: function() {
+            this.editor.getDocument().execCommand('insertunorderedlist');
         },
-        alignRight: function(editor) {
-            editor.getDocument().execCommand('justifyright');
+        image: function(url) {
+            this.editor.getDocument().execCommand('insertimage', url);
         },
-        alignFull: function(editor) {
-            editor.getDocument().execCommand('justifyfull');
+        alignLeft: function() {
+            this.editor.getDocument().execCommand('justifyleft');
         },
-        fontSize: function(editor, size) {
-            editor.getDocument().execCommand('fontSize', false, size);
+        alignCenter: function() {
+            this.editor.getDocument().execCommand('justifycenter');
         },
-        foreColor: function(editor, color) {
-            editor.getDocument().execCommand('foreColor', false, color);
+        alignRight: function() {
+            this.editor.getDocument().execCommand('justifyright');
         },
-        backColor: function(editor, color) {
-            editor.getDocument().execCommand('backColor', false, color);
+        alignFull: function() {
+            this.editor.getDocument().execCommand('justifyfull');
         },
-        heading: function(editor, h) {
+        fontSize: function(size) {
+            this.editor.getDocument().execCommand('fontSize', false, size);
+        },
+        foreColor: function(color) {
+            this.editor.getDocument().execCommand('foreColor', false, color);
+        },
+        backColor: function(color) {
+            this.editor.getDocument().execCommand('backColor', false, color);
+        },
+        heading: function(h) {
             if (parseInt(h) <= 6 && parseInt(h) >= 0) {
-                editor.getDocument().execCommand('formatBlock', false, 'H'+(h+1));
+                this.editor.getDocument().execCommand('formatBlock', false, 'H'+(h+1));
                 return;
             }
-            editor.getDocument().execCommand('formatBlock', false, h);
+            this.editor.getDocument().execCommand('formatBlock', false, h);
         },
-        increaseIndent: function(editor) {
-            editor.getDocument().execCommand('indent');
+        increaseIndent: function() {
+            this.editor.getDocument().execCommand('indent');
         },
-        decreaseIndent: function(editor) {
-            editor.getDocument().execCommand('outdent');
+        decreaseIndent: function() {
+            this.editor.getDocument().execCommand('outdent');
         },
-        redo: function(editor) {
-            editor.getDocument().execCommand('redo');
+        redo: function() {
+            this.editor.getDocument().execCommand('redo');
         },
-        undo: function(editor) {
-            editor.getDocument().execCommand('undo');
+        undo: function() {
+            this.editor.getDocument().execCommand('undo');
         }
     };
 
@@ -148,26 +164,25 @@ var EditorFunc = (function() {
         this.editor = editor;
     };
 
-    editor_func.prototype.getFunc = function(index) {
-        var type = this.editor.config.type || 'html';
-        if (type == 'html') {
-            var func = htmlFunc;
-        } else {
-            var func = dropdownFunc;
-        }
-        return func[index];
-    };
-
     return {
         hf: htmlFunc,
         mf: markdownFunc,
         init: function(editor) {
+            var type = editor.config.type || 'html';
+            if (type == 'html') {
+                editor_func.prototype = htmlFunc;
+            } else {
+                editor_func.prototype = dropdownFunc;
+            }
             return new editor_func(editor);
         }
     }
 })();
 
+
+
 var EditorToolbar = (function() {
+
     /**
      * 改变工具栏的条目状态
      * @param editor 编辑器对象
@@ -194,13 +209,14 @@ var EditorToolbar = (function() {
             return;
         }
     };
+
     /**
      * 通常的工具栏条目初始化, 该方法会读取onclick，然后执行
      */
     var normalInitToolbarItem = function($item) {
         var editor = $item.data('editor');
-        var func = $item.data('toolbar-item-click');
-        func(editor);
+        var func_id = $item.attr('data-id');
+        editor.fn[func_id]();
         editor.focus();
     };
 
@@ -214,8 +230,7 @@ var EditorToolbar = (function() {
         for (var i = 0; i < sizes.length; ++i) {(function(i, item) {
             $('<li class="item" style="font-size: '+item+'px">'+item+'</li>').click(function() {
                 var editor = $container.data('editor');
-                var setFontSize = $container.data('toolbar-item-click');
-                setFontSize(editor, i+1);
+                editor.fn.fontSize(i+1);
                 $toggle.html(sizes[i]);
                 editor.focus();
             }).appendTo($pop_menu_wrapper.find('.pop-menu'));
@@ -233,16 +248,14 @@ var EditorToolbar = (function() {
         for (var i = 0; i < sizes.length; ++i) {(function(i, item) {
             $('<li class="item" style="font-size: '+item+'px">h'+(i+1)+'</li>').click(function() {
                 var editor = $container.data('editor');
-                var setHeading = $container.data('toolbar-item-click');
-                setHeading(editor, i);
+                editor.fn.heading(i);
                 $toggle.text('h'+(i+1));
                 editor.focus();
             }).appendTo($pop_menu_wrapper.find('.pop-menu'));
         })(i, sizes[i]);}
         $('<li class="item style="font-size: 16px">p</li>').click(function() {
             var editor = $container.data('editor');
-            var setHeading = $container.data('toolbar-item-click');
-            setHeading(editor, 'p');
+            editor.fn.heading('p');
             $toggle.text('p');
             editor.focus();
         }).appendTo($pop_menu_wrapper.find('.pop-menu'));
@@ -255,13 +268,13 @@ var EditorToolbar = (function() {
         var $toggle = $('<span class="zmdi zmdi-format-color-text item" title="设置前景色" data-toggle="pop-menu"></span>');
         var $cs = new ColorSelector(function(color) {
             var editor = $container.data('editor');
-            var setForeColor = $container.data('toolbar-item-click');
-            setForeColor(editor, color);
+            editor.fn.foreColor(color);
             editor.focus();
         }).appendTo($pop_menu_wrapper.find('.pop-menu'));
         $toggle.popMenu().appendTo($container);
         return $container;
     };
+
     var createBackColorUI = function() {
         var $container = $('<span class="pop-menu-container"></span>');
         var $pop_menu_wrapper = $('<div class="pop-menu-wrapper"><div class="pop-menu arrow-top"></div></div>');
@@ -269,8 +282,7 @@ var EditorToolbar = (function() {
         var $toggle = $('<span class="item" data-toggle="pop-menu" title="设置背景色"><span class="back-color"></span></span>');
         var $cs = new ColorSelector(function(color) {
             var editor = $container.data('editor');
-            var setBackColor = $container.data('toolbar-item-click');
-            setBackColor(editor, color);
+            editor.fn.backColor(color);
             editor.focus();
         }).appendTo($pop_menu_wrapper.find('.pop-menu'));
         $toggle.popMenu().appendTo($container);
@@ -291,8 +303,10 @@ var EditorToolbar = (function() {
             return false;
         }).appendTo($pop_menu_wrapper.find('.pop-menu')).find('.btn').click(function() {
             var editor = $container.data('editor');
-            var func = $container.data('toolbar-item-click');
-            func(editor, $container.find('[name=link]').val(), $container.find('[name=link-label]').val());
+            editor.fn.link(
+                $container.find('[name=link]').val(),
+                $container.find('[name=link-label]').val()
+            );
             editor.focus();
         });
         var $toggle = $('<span class="zmdi zmdi-link item" title="添加链接" data-toggle="pop-menu"></span>');
@@ -312,8 +326,10 @@ var EditorToolbar = (function() {
             return false;
         }).appendTo($pop_menu_wrapper.find('.pop-menu')).find('.btn').click(function() {
             var editor = $container.data('editor');
-            var func = $container.data('toolbar-item-click');
-            func(editor, $container.find('[name=row]').val(), $container.find('[name=col]').val());
+            editor.fn.table(
+                $container.find('[name=row]').val(),
+                $container.find('[name=col]').val()
+            );
             editor.focus();
         });
         var $toggle = $('<span class="zmdi zmdi-grid item" title="添加表格" data-toggle="pop-menu"></span>');
@@ -463,20 +479,19 @@ var EditorToolbar = (function() {
         var $container = editor.$toolbarContainer;
         var $toolbar = $('<div class="editor-toolbar"></div>').appendTo($container);
         var toolbar_config = editor.config.toolbar;
-        var func = EditorFunc.init(editor);
+
         for(var i = 0; i < toolbar_config.length; ++i) {
             if (toolbar_config[i] == 'sep') {
                 $('<span class="sep"></span>').appendTo($toolbar);
                 continue;
             }
-            if (typeof func.getFunc(toolbar_config[i]) != 'function') {
+            if (typeof editor.fn[toolbar_config[i]] !== 'function') {
                 continue;
             }
             if (toolbarItems[toolbar_config[i]]) {
                 var $item = toolbarItems[toolbar_config[i]];
                 $item.attr('data-id', toolbar_config[i]);
-                $item.ofEditor(editor).listen(func.getFunc(toolbar_config[i]));
-                $item.appendTo($toolbar);
+                $item.ofEditor(editor).appendTo($toolbar);
             }
         }
     };
@@ -527,6 +542,7 @@ var EditorToolbar = (function() {
             .find('[data-toggle=pop-menu]')
             .html(formatblock);
     };
+
     toolbar.prototype.closePopMenu = function() {
         this.editor.$toolbarContainer.find('[data-toggle=pop-menu]').each(function() {
             $(this).parent().removeClass('active');
@@ -537,10 +553,12 @@ var EditorToolbar = (function() {
         init: function(editor) {
             return new toolbar(editor);
         }
-    }
+    };
 })();
 
+
 var LenoEditor = (function() {
+
     var defaultConfig = {
         toolbar : [
             'selectAll', 'copy', 'cut', 'paste', 'sep',
@@ -582,6 +600,7 @@ var LenoEditor = (function() {
                 .appendTo($root);
         editor.$statusbar = $('<div class="editor-statusbar lr"><span data-id="at"></span></div>');
         editor.$statusbar.appendTo($root);
+        editor.fn = EditorFunc.init(editor);
         editor.toolbar = EditorToolbar.init(editor);
         return content;
     };
@@ -643,7 +662,7 @@ var LenoEditor = (function() {
         var me = this;
         var doc = me.getDocument();
         var bodys = doc.getElementsByTagName('body');
-        if (this.toobarInside) {
+        if (this.toolbarInside) {
             var toolbarHeight = me.$toolbarContainer.height();
             var height = Math.max(
                 bodys[0].offsetHeight + toolbarHeight + 30,
@@ -663,6 +682,7 @@ var LenoEditor = (function() {
 
         me.$root.css('width', width);
         me.$root.height(height);
+
         if (this.toolbarInside) {
             var $toolbar = me.$toolbarContainer.find('.editor-toolbar');
             $toolbar.width(me.$toolbarContainer.width() - 1);
@@ -676,6 +696,7 @@ var LenoEditor = (function() {
         me.$iframe.attr('height', frameHeight);
         return me;
     };
+
     editor.prototype.focus = function() {
         this.$iframe.focus();
         this.toolbar.update();
@@ -686,30 +707,37 @@ var LenoEditor = (function() {
         }
         return this;
     };
+
     editor.prototype.getY = function() {
         var pos = this.$root.pos();
         return pos.y;
     };
+
     editor.prototype.getX = function() {
         var pos = this.$root.pos();
         return pos.x;
     };
+
     editor.prototype.getH = function() {
         return this.$root.height();
     };
+
     editor.prototype.getW = function() {
         return this.$root.width();
     };
+
     editor.prototype.getHtml = function() {
         var doc = this.getDocument();
         var body = doc.getElementsByTagName('body');
         return $(body[0]).html();
     };
+
     editor.prototype.getText = function() {
         var doc = this.getDocument();
         var body = doc.getElementsByTagName('body');
         return $(body[0]).text();
     };
+
     return editor;
 })();
 
@@ -724,10 +752,6 @@ var LenoEditor = (function() {
             $(this).data('editor', new LenoEditor($(this)));
         }
         return $(this).data('editor');
-    };
-    $.fn.listen = function(callback) {
-        $(this).data('toolbar-item-click', callback);
-        return $(this);
     };
     $.fn.ofEditor = function(editor) {
         $(this).data('editor', editor);

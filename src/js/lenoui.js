@@ -95,6 +95,10 @@ var lenoui = (function($) {
             if (error) {
                 return;
             }
+            var before = $me.data('before');
+            if (typeof before == 'function' && !before.call($me, data)) {
+                return;
+            }
             lenoui.ajax({
                 url: url,
                 data: data,
@@ -114,8 +118,7 @@ var lenoui = (function($) {
     };
 
     var lenoui_ajax = function(opts) {
-        var timeout = 20;   // 20秒超时
-        console.log(opts);
+        var timeout = 20000;   // 20秒超时
         $.ajax({
             url: opts.url, 
             type: opts.data._method !== 'get' ? 'POST' : 'GET',
