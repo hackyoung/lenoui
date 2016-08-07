@@ -1,4 +1,5 @@
 var LenoEditor = (function() {
+
     var defaultConfig = {
         toolbar : [
             'selectAll', 'copy', 'cut', 'paste', 'sep',
@@ -40,6 +41,7 @@ var LenoEditor = (function() {
                 .appendTo($root);
         editor.$statusbar = $('<div class="editor-statusbar lr"><span data-id="at"></span></div>');
         editor.$statusbar.appendTo($root);
+        editor.fn = EditorFunc.init(editor);
         editor.toolbar = EditorToolbar.init(editor);
         return content;
     };
@@ -101,7 +103,7 @@ var LenoEditor = (function() {
         var me = this;
         var doc = me.getDocument();
         var bodys = doc.getElementsByTagName('body');
-        if (this.toobarInside) {
+        if (this.toolbarInside) {
             var toolbarHeight = me.$toolbarContainer.height();
             var height = Math.max(
                 bodys[0].offsetHeight + toolbarHeight + 30,
@@ -121,6 +123,7 @@ var LenoEditor = (function() {
 
         me.$root.css('width', width);
         me.$root.height(height);
+
         if (this.toolbarInside) {
             var $toolbar = me.$toolbarContainer.find('.editor-toolbar');
             $toolbar.width(me.$toolbarContainer.width() - 1);
@@ -134,6 +137,7 @@ var LenoEditor = (function() {
         me.$iframe.attr('height', frameHeight);
         return me;
     };
+
     editor.prototype.focus = function() {
         this.$iframe.focus();
         this.toolbar.update();
@@ -144,30 +148,37 @@ var LenoEditor = (function() {
         }
         return this;
     };
+
     editor.prototype.getY = function() {
         var pos = this.$root.pos();
         return pos.y;
     };
+
     editor.prototype.getX = function() {
         var pos = this.$root.pos();
         return pos.x;
     };
+
     editor.prototype.getH = function() {
         return this.$root.height();
     };
+
     editor.prototype.getW = function() {
         return this.$root.width();
     };
+
     editor.prototype.getHtml = function() {
         var doc = this.getDocument();
         var body = doc.getElementsByTagName('body');
         return $(body[0]).html();
     };
+
     editor.prototype.getText = function() {
         var doc = this.getDocument();
         var body = doc.getElementsByTagName('body');
         return $(body[0]).text();
     };
+
     return editor;
 })();
 
@@ -182,10 +193,6 @@ var LenoEditor = (function() {
             $(this).data('editor', new LenoEditor($(this)));
         }
         return $(this).data('editor');
-    };
-    $.fn.listen = function(callback) {
-        $(this).data('toolbar-item-click', callback);
-        return $(this);
     };
     $.fn.ofEditor = function(editor) {
         $(this).data('editor', editor);

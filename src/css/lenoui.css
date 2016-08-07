@@ -434,11 +434,17 @@ ul.pop-menu {
     margin: 5px;
     padding: 5px;
     border-radius: .2em;
+    list-style: none;
     color: #666;
+    transition: all .1s ease-in;
+    -moz-transition: all .1s ease-in;
+    -webkit-transition: all .1s ease-in;
 }
 .list>.item:hover,
 .list>.item.active {
-    background-color: rgba(0, 0, 0, .1);
+    background-image: linear-gradient(to bottom, rgba(0, 128, 0, .3), rgba(0, 128, 0, .3));
+    box-shadow: 1px 1px 4px rgba(0, 128, 0, .4);
+    color: #fff;
     cursor: pointer;
 }
 .nav {
@@ -475,4 +481,7 @@ ul.pop-menu {
 }
 .pop-menu-wrapper>.pop-menu {
     width: 100%;
+}
+.fixedable>.fixedable-content {
+    position: absolute;
 }

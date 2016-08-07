@@ -1,86 +1,101 @@
 var EditorFunc = (function() {
-    var htmlFunc = {
-        code : function(editor) {
-            editor.getDocument().execCommand('insertHTML', '<pre></pre>');
-        },
-        clear: function(editor) {
-            editor.getDocument().execCommand('removeFormat');
-        },
-        link: function(editor, href, label) {
-            editor.getDocument().execCommand('insertHTML', false, '<a href="'+href+'">'+label+'</a>');
-        },
-        table: function(editor, row, col) {
 
+    var htmlFunc = {
+        code : function() {
+            this.editor.getDocument().execCommand(
+                'insertHTML', '<pre></pre>'
+            );
         },
-        italic: function(editor) {
-            editor.getDocument().execCommand('italic');
+        clear: function() {
+            this.editor.getDocument().execCommand('removeFormat');
         },
-        bold: function(editor) {
-            editor.getDocument().execCommand('bold');
+        link: function(href, label) {
+            this.editor.getDocument().execCommand(
+                'insertHTML', false, '<a href="'+href+'">'+label+'</a>'
+            );
         },
-        underline: function(editor) {
-            editor.getDocument().execCommand('underline');
+        table: function(row, col) {
+            var $table = $('<table></table>');
+            for(var i = 0; i < row; ++i) {
+                var $tr = $('<tr></tr>').appendTo($table);
+                for(var j = 0; j < col; ++j) {
+                    $('<td></td>').appendTo($tr);
+                }
+            }
+            this.editor.getDocument().execCommand(
+                'insertHTML', false, $('<div></div>').append($table).html()
+            );
+            return $table;
         },
-        selectAll: function(editor) {
-            editor.getDocument().execCommand('selectAll');
+        italic: function() {
+            this.editor.getDocument().execCommand('italic');
         },
-        copy: function(editor) {
-            editor.getDocument().execCommand('copy');
+        bold: function() {
+            this.editor.getDocument().execCommand('bold');
         },
-        cut: function(editor) {
-            editor.getDocument().execCommand('cut');
+        underline: function() {
+            this.editor.getDocument().execCommand('underline');
         },
-        paste: function(editor) {
-            editor.getDocument().execCommand('paste');
+        selectAll: function() {
+            this.editor.getDocument().execCommand('selectAll');
         },
-        orderedList: function(editor) {
-            editor.getDocument().execCommand('insertorderedlist');
+        copy: function() {
+            this.editor.getDocument().execCommand('copy');
         },
-        unorderedList: function(editor) {
-            editor.getDocument().execCommand('insertunorderedlist');
+        cut: function() {
+            this.editor.getDocument().execCommand('cut');
         },
-        image: function(editor, url) {
-            editor.getDocument().execCommand('insertimage', url);
+        paste: function() {
+            this.editor.getDocument().execCommand('paste');
         },
-        alignLeft: function(editor) {
-            editor.getDocument().execCommand('justifyleft');
+        orderedList: function() {
+            this.editor.getDocument().execCommand('insertorderedlist');
         },
-        alignCenter: function(editor) {
-            editor.getDocument().execCommand('justifycenter');
+        unorderedList: function() {
+            this.editor.getDocument().execCommand('insertunorderedlist');
         },
-        alignRight: function(editor) {
-            editor.getDocument().execCommand('justifyright');
+        image: function(url) {
+            this.editor.getDocument().execCommand('insertimage', url);
         },
-        alignFull: function(editor) {
-            editor.getDocument().execCommand('justifyfull');
+        alignLeft: function() {
+            this.editor.getDocument().execCommand('justifyleft');
         },
-        fontSize: function(editor, size) {
-            editor.getDocument().execCommand('fontSize', false, size);
+        alignCenter: function() {
+            this.editor.getDocument().execCommand('justifycenter');
         },
-        foreColor: function(editor, color) {
-            editor.getDocument().execCommand('foreColor', false, color);
+        alignRight: function() {
+            this.editor.getDocument().execCommand('justifyright');
         },
-        backColor: function(editor, color) {
-            editor.getDocument().execCommand('backColor', false, color);
+        alignFull: function() {
+            this.editor.getDocument().execCommand('justifyfull');
         },
-        heading: function(editor, h) {
+        fontSize: function(size) {
+            this.editor.getDocument().execCommand('fontSize', false, size);
+        },
+        foreColor: function(color) {
+            this.editor.getDocument().execCommand('foreColor', false, color);
+        },
+        backColor: function(color) {
+            this.editor.getDocument().execCommand('backColor', false, color);
+        },
+        heading: function(h) {
             if (parseInt(h) <= 6 && parseInt(h) >= 0) {
-                editor.getDocument().execCommand('formatBlock', false, 'H'+(h+1));
+                this.editor.getDocument().execCommand('formatBlock', false, 'H'+(h+1));
                 return;
             }
-            editor.getDocument().execCommand('formatBlock', false, h);
+            this.editor.getDocument().execCommand('formatBlock', false, h);
         },
-        increaseIndent: function(editor) {
-            editor.getDocument().execCommand('indent');
+        increaseIndent: function() {
+            this.editor.getDocument().execCommand('indent');
         },
-        decreaseIndent: function(editor) {
-            editor.getDocument().execCommand('outdent');
+        decreaseIndent: function() {
+            this.editor.getDocument().execCommand('outdent');
         },
-        redo: function(editor) {
-            editor.getDocument().execCommand('redo');
+        redo: function() {
+            this.editor.getDocument().execCommand('redo');
         },
-        undo: function(editor) {
-            editor.getDocument().execCommand('undo');
+        undo: function() {
+            this.editor.getDocument().execCommand('undo');
         }
     };
 
@@ -90,20 +105,16 @@ var EditorFunc = (function() {
         this.editor = editor;
     };
 
-    editor_func.prototype.getFunc = function(index) {
-        var type = this.editor.config.type || 'html';
-        if (type == 'html') {
-            var func = htmlFunc;
-        } else {
-            var func = dropdownFunc;
-        }
-        return func[index];
-    };
-
     return {
         hf: htmlFunc,
         mf: markdownFunc,
         init: function(editor) {
+            var type = editor.config.type || 'html';
+            if (type == 'html') {
+                editor_func.prototype = htmlFunc;
+            } else {
+                editor_func.prototype = dropdownFunc;
+            }
             return new editor_func(editor);
         }
     }
