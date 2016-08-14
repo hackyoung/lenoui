@@ -65,7 +65,7 @@ var LenoEditor = (function() {
         var $toolbar = editor.$toolbarContainer.find('.editor-toolbar');
         var toolbar_pos = $toolbar.pos();
         $(window).scroll(function() {
-            $toolbar.css('top', Math.max(toolbar_pos.y - 18, $(window).scrollTop() + editor.config.toolbarFixedTop));
+            $toolbar.css('top', Math.max(toolbar_pos.y - 14, $(window).scrollTop() + editor.config.toolbarFixedTop));
             var now_toolbar_pos = $toolbar.pos();
             if (now_toolbar_pos.y + $toolbar.height() > editor.getY() + editor.getH()) {
                 $toolbar.css('transform', 'scale(0)');
@@ -126,7 +126,7 @@ var LenoEditor = (function() {
 
         if (this.toolbarInside) {
             var $toolbar = me.$toolbarContainer.find('.editor-toolbar');
-            $toolbar.width(me.$toolbarContainer.width() - 1);
+            $toolbar.width(me.$toolbarContainer.width());
             me.$toolbarContainer.height($toolbar.height());
             var frameHeight = height - me.$toolbarContainer.height() - 30;
         } else {
