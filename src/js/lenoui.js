@@ -71,13 +71,6 @@ var lenoui = (function($) {
         var url = $me.attr('href'); 
         var method = $me.attr('data-method') || 'get';
         var redirect = $me.attr('data-redirect');
-        var success = $me.data('success') || function(res) {
-            if (!redirect) {
-                return;
-            }
-            window.location.href = redirect;
-        };
-        var error = $me.data('error');
         $me.find('[data-id=submit]').click(function() {
             var data = {};
             var error = false;
@@ -91,7 +84,6 @@ var lenoui = (function($) {
                 }
                 data[$item.attr('name')] = val;
             });
-            data._method = method;
             if (error) {
                 return;
             }
@@ -99,13 +91,21 @@ var lenoui = (function($) {
             if (typeof before == 'function' && !before.call($me, data)) {
                 return;
             }
+            var success = $me.data('success') || function(res) {
+                if (!redirect) {
+                    return;
+                }
+                window.location.href = redirect;
+            };
+            var error = $me.data('error') || function (res) {
+                lenoui.alert(res.responseText);
+            };
             lenoui.ajax({
                 url: url,
+                method: method,
                 data: data,
-                success: success,
-                error: error || function(res) {
-                    lenoui.alert(res.responseText);
-                }
+                _success: success,
+                _error: error
             });
         });
     };
@@ -119,23 +119,48 @@ var lenoui = (function($) {
 
     var lenoui_ajax = function(opts) {
         var timeout = 20000;   // 20秒超时
-        $.ajax({
-            url: opts.url, 
-            type: opts.data._method !== 'get' ? 'POST' : 'GET',
-            timeout: timeout,
-            data: opts.data,
-            complete: function(res) {
-                if (res.status == 200) {
-                    opts.success(res);
-                    return;
-                }
-                opts.error(res);
-            },
-        });
+        var method = opts.method || 'post';
+        opts._success = opts._success || function(res) {};
+        opts._error = opts._error || function(res) {
+            lenoui.alert(res.responseText);
+        };
+        opts.data = opts.data || {};
+        if (opts.method != 'get') {
+            opts.data._method = opts.method;
+        }
+        opts.type = opts.method !== 'get' ? 'POST' : 'GET';
+        opts.timeout = opts.timeout || timeout;
+        opts.complete = function(res) {
+            if (res.status == 200) {
+                opts._success(res);
+                return;
+            }
+            opts._error(res);
+        };
+        delete opts.method;
+        $.ajax(opts);
     };
+
+    var lenoui_empty = function(obj) {
+        if (obj === '' || obj === null || obj === undefined) {
+            return true;
+        }
+        if (obj.length && obj.length == 0) {
+            return true;
+        }
+        if (typeof obj == 'object') {
+            for(var i in obj) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     return {
         alert : lenoui_alert,
-        ajax: lenoui_ajax
+        ajax: lenoui_ajax,
+        empty: lenoui_empty
     };
 })(jQuery);
 
@@ -209,9 +234,17 @@ $(function() {
             $(this).parent().removeClass('active');
         });
     });
-    /**
-     * 初始化fixedable
-     */
+
+    setTimeout(function() {
+        /**
+         * 初始化fixedable
+         */
+        $('.fixedable').each(function() {
+            var $content = $(this).find('.fixedable-content');
+            $content.width($(this).width());
+            $(this).height($content.height());
+        });
+    }, 500);
     $('.fixedable').each(function() {
         var $content = $(this).find('.fixedable-content');
         $content.width($(this).width());
