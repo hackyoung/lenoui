@@ -53,6 +53,9 @@ var LenoEditor = (function() {
         var content = constructUI(self, $root);
         window.onload = function() {
             editor.init(self);
+            if ($.trim(content) == '') {
+                content = '<br />';
+            }
             self.setContent(content);
         };
     };
@@ -74,7 +77,7 @@ var LenoEditor = (function() {
             $toolbar.css('transform', 'scale(1)');
         });
         $(window).resize(function() {
-            editor.resize();
+            editor.resizeContent();
         });
         editor.resize();
         $(editor.getDocument()).bind('input propertychange', function() {
@@ -128,9 +131,9 @@ var LenoEditor = (function() {
             var $toolbar = me.$toolbarContainer.find('.editor-toolbar');
             $toolbar.width(me.$toolbarContainer.width() - 1);
             me.$toolbarContainer.height($toolbar.height());
-            var frameHeight = height - me.$toolbarContainer.height() - 30;
+            var frameHeight = height - me.$toolbarContainer.height() - 32;
         } else {
-            var frameHeight = height - 30;   
+            var frameHeight = height - 32;   
         }
 
         me.$iframe.attr('width', width);
